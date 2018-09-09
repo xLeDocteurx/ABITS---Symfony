@@ -18,3 +18,8 @@ body {
 .del_form {
     display: inline-block;
 }
+
+#post_show_cardimage {
+    height:250px;
+    overflow: hidden;
+}

@@ -35,7 +35,18 @@ class PostsController extends AbstractController
      */
     public function index(PostsRepository $postsRepository): Response
     {        
-        return $this->render('posts/index.html.twig', ['posts' => array_reverse($postsRepository->findAll())]);
+
+        // $postsIWant = $bottlesSentRepository->findById($thisUser->getId());
+
+        // $postsIWant = $bottlesSentRepository->findBy(
+        //     array('receivers' => $thisUser) // Critere
+        //     // array('date' => 'desc'),        // Tri
+        //     // 5,                              // Limite
+        //     // 0                               // Offset
+        //   );
+        
+        $postsIWant = array_reverse($postsRepository->findAll());
+        return $this->render('posts/index.html.twig', ['posts' => $postsIWant]);
     }
 
     /**
