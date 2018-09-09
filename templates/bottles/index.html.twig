@@ -27,14 +27,14 @@
                 <td>{{ bottle.content }}</td>
                 <td>{{ bottle.date ? bottle.date|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    {{ bottle.sent ? '
-                    <a class="disabled waves-effect waves-light btn-small dropdown-trigger" href="#!" data-target="dropdown2">Yes<i class="material-icons right">arrow_drop_down</i></a>
-                    ' : '
-                    <ul id="dropdown2" class="dropdown-content">
-                        <li><a href="#!">Send</a></li>
-                    </ul>
-                    <a class="waves-effect waves-light btn-small dropdown-trigger" href="#!" data-target="dropdown2">No<i class="material-icons right">arrow_drop_down</i></a>
-                    ' }}
+                    {% if bottle.sent %}
+                        <a class="disabled waves-effect waves-light btn-small dropdown-trigger" href="#!" data-target="dropdown2">Yes<i class="material-icons right">arrow_drop_down</i></a>
+                    {% else %}
+                        <ul id="dropdown2" class="dropdown-content">
+                            <li><a href="{{ path('bottles_sent_new') }}">Send</a></li>
+                        </ul>
+                        <a class="waves-effect waves-light btn-small dropdown-trigger" href="#!" data-target="dropdown2">No<i class="material-icons right">arrow_drop_down</i></a>
+                    {% endif %}
 
                 </td>
 

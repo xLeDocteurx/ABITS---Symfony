@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Users;
+use App\Form\UsersType;
 use App\Repository\UsersRepository;
 use App\Entity\Bottles;
+use App\Form\BottlesType;
 use App\Repository\BottlesRepository;
 
 use App\Entity\BottlesSent;
@@ -40,8 +42,9 @@ class BottlesSentController extends Controller
         ->getRepository(Users::class)
         ->findOneByUsername('LeDocteur');
         
-        // $user_bottles = $bottlesSentRepository->findAll();
-        $user_bottles = $bottlesSentRepository->findById($thisUser->getId());
+        $user_bottles = $bottlesSentRepository->findAll();
+        // $user_bottles = $bottlesSentRepository->findById($thisUser->getId());
+
         // $user_bottles = $bottlesSentRepository->findBy(
         //     array('receivers' => $thisUser) // Critere
         //     // array('date' => 'desc'),        // Tri
@@ -51,20 +54,56 @@ class BottlesSentController extends Controller
 
         return $this->render('bottles_sent/index.html.twig', ['bottles_sents' => $user_bottles]);
     }
+    /**
+     * @Route("/all", name="bottles_sent_all", methods="GET")
+     */
+    public function all(BottlesSentRepository $bottlesSentRepository): Response
+    {
+        $all_bottles = $bottlesSentRepository->findAll();
+        return $this->render('bottles_sent/index.html.twig', ['bottles_sents' => $all_bottles]);
+    }
 
     /**
      * @Route("/new", name="bottles_sent_new", methods="GET|POST")
      */
     public function new(Request $request): Response
     {
+
+        // $numberOfReceivers = 4;
+
+        // $usersCount = count(
+        //     $this->getDoctrine()
+        //     ->getRepository(Users::class)
+        //     ->findAll()
+        // );
+        // for ($i = 0; $i < $numberOfReceivers;$i++) {
+        //     $bottlesSent = new BottlesSent();
+        //     $bottlesSent->setBottle($bottle);
+        //     $randomId = rand(1,$usersCount);
+        //     $randomUser = $this->getDoctrine()
+        //     ->getRepository(Users::class)
+        //     ->findOneById($randomId);
+        //     $bottlesSent->addReceiver($randomUser);
+        //     $em = $this->getDoctrine()->getManager();
+        //     $em->persist($bottlesSent);
+        //     $em->flush();
+        // }
+
+        // $bottle->setSent(true);
+
+        // return $this->redirectToRoute('bottles_sent_index');
+        
         $bottlesSent = new BottlesSent();
+        // $bottlesSent->setBottle($bottle);
 
-        $form = $this->createForm(BottlesSentType::class, $bottlesSent);
+        // $form = $this->createForm(BottlesSentType::class, $bottlesSent);
 
-        // $form = $this->createFormBuilder($bottlesSent)
-        //     // ->add('title', TextType::class)
-        //     // ->add('content', TextareaType::class)
-        //     ->getForm();
+
+
+        $form = $this->createFormBuilder($bottlesSent)
+            ->add('bottle', BottlesType::class, array('data_class' => null))
+            ->add('receivers', UsersType::class, array('data_class' => null))
+            ->getForm();
 
         $form->handleRequest($request);
 
@@ -80,6 +119,7 @@ class BottlesSentController extends Controller
             'bottles_sent' => $bottlesSent,
             'form' => $form->createView(),
         ]);
+
     }
 
     /**

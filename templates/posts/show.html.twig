@@ -6,8 +6,8 @@
     {# <h1>#{{ post.id }} : {{ post.title }}</h1> #}
 
 
-        <div class="row">
-            <div class="col s12 m8 offset-m2">
+        <div class="container row">
+            <div class="col s12">
                 <div class="card">
                     <div class="card-image">
                         <a href="{{ path('posts_show', {'id': post.id}) }}"><img src="{{ asset('images/sample-1.jpg') }}" alt="Card Image">
@@ -36,11 +36,9 @@
                                 No commentarie found
                             {% endfor %}
                         </div>
-                        <a class="waves-effect waves-light btn" href="{{ path('comments_new', {'id': post.id}) }}">Comment this post</a>
                     </div>
                     <div class="card-action">
-                        <a href="{{ path('posts_show', {'id': post.id}) }}">show</a>
-                        <a href="{{ path('posts_edit', {'id': post.id}) }}">edit</a>
+                        <a class="waves-effect waves-light btn" href="{{ path('comments_new', {'id': post.id}) }}">Comment this post</a>
                     </div>
                 </div>
                     <tr>
@@ -52,9 +50,9 @@
             </div>
         </div>
 
-    <a href="{{ path('posts_index') }}">back to list</a>
+    <a class="waves-effect waves-light btn" href="{{ path('posts_index') }}">back to list</a>
 
-    <a href="{{ path('posts_edit', {'id': post.id}) }}">edit</a>
+    <a class="waves-effect waves-light btn" href="{{ path('posts_edit', {'id': post.id}) }}">edit</a>
 
     {{ include('posts/_delete_form.html.twig') }}
 {% endblock %}

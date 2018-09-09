@@ -3,24 +3,25 @@
 {% block title %}Posts index{% endblock %}
 
 {% block body %}
-    <h1>Welcome to ABITS !</h1>
-    <h4>Here is some news about your App !</h4>
+<div class="container">
+    <h1 class="center-align">Welcome to ABITS !</h1>
+    <h4 class="center-align">Here is some news about your App !</h4>
 
     {# <a href="{{ path('posts_new') }}">Create new</a> #}
 
-    <ul class="pagination">
+    <ul class="pagination center-align">
         <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
         <li class="active"><a href="#!">1</a></li>
-        <li class="waves-effect"><a href="#!">2</a></li>
-        <li class="waves-effect"><a href="#!">3</a></li>
-        <li class="waves-effect"><a href="#!">4</a></li>
-        <li class="waves-effect"><a href="#!">5</a></li>
-        <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+        <li class="disabled waves-effect"><a href="#!">2</a></li>
+        <li class="disabled waves-effect"><a href="#!">3</a></li>
+        <li class="disabled waves-effect"><a href="#!">4</a></li>
+        <li class="disabled waves-effect"><a href="#!">5</a></li>
+        <li class="disabled waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
     </ul>
 
     {% for post in posts %}
         <div class="row">
-            <div class="col s12 m6 offset-m3">
+            <div class="col s12 m10 offset-m1">
             <div class="card medium hoverable">
                 <div class="card-image">
                     <a href="{{ path('posts_show', {'id': post.id}) }}"><img src="{{ asset('images/sample-1.jpg') }}" alt="Card Image">
@@ -37,11 +38,20 @@
             </div>
             </div>
         </div>
-
     {% else %}
         <tr>
             <td colspan="5">no records found</td>
         </tr>
     {% endfor %}
 
+    <ul class="pagination center-align">
+        <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+        <li class="active"><a href="#!">1</a></li>
+        <li class="disabled waves-effect"><a href="#!">2</a></li>
+        <li class="disabled waves-effect"><a href="#!">3</a></li>
+        <li class="disabled waves-effect"><a href="#!">4</a></li>
+        <li class="disabled waves-effect"><a href="#!">5</a></li>
+        <li class="disabled waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+    </ul>
+</div>
 {% endblock %}

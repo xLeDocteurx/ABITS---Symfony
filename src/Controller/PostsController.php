@@ -33,7 +33,7 @@ class PostsController extends AbstractController
      */
     public function index(PostsRepository $postsRepository): Response
     {        
-        return $this->render('posts/index.html.twig', ['posts' => $postsRepository->findAll()]);
+        return $this->render('posts/index.html.twig', ['posts' => array_reverse($postsRepository->findAll())]);
     }
 
     /**
