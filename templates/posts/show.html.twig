@@ -15,7 +15,19 @@
                         <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
                     </div>
                     <div class="card-content">
+
+                        {# <a class="" href="{{ path('comments_new', {'id': post.id}) }}">Comment this post</a> #}
+                        <a class="waves-effect waves-light btn" href="{{ path('posts_index') }}">back to list</a>
+                        <a class="waves-effect waves-light btn" href="{{ path('posts_edit', {'id': post.id}) }}">edit</a>
+                        {{ include('posts/_delete_form.html.twig') }}
+                        <br>
+                        <br>
+                        <hr>
+
+                    </div>
+                    <div class="card-content">
                         {{ post.date ? post.date|date('Y-m-d H:i:s') : '' }} / By : <a href="{{ path('users_show', {'id': post.author.id}) }}">{{ post.author.username }}</a>
+                        <h1>#{{ post.id }} : {{ post.title }}</h1>
                         <p>{{ post.content }}</p>
                     </div>
                     <div class="card-content">
@@ -42,13 +54,6 @@
                     <div class="card-action">
                         <h4>Comment this post</h4>
                         {{ include('comments/_form.html.twig') }}
-                        
-                        <hr>
-
-                        {# <a class="" href="{{ path('comments_new', {'id': post.id}) }}">Comment this post</a> #}
-                        <a class="waves-effect waves-light btn" href="{{ path('posts_index') }}">back to list</a>
-                        <a class="waves-effect waves-light btn" href="{{ path('posts_edit', {'id': post.id}) }}">edit</a>
-                        {{ include('posts/_delete_form.html.twig') }}
                     </div>
                 </div>
                     <tr>
