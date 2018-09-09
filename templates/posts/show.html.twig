@@ -22,14 +22,15 @@
                         <h4>Comments</h4>
                         <div>
                           <ul class="collection">
-                            {% for com in post.comments %}
+                            {% for comment in post.comments %}
 
                             <li class="collection-item avatar">
                                 <img src="{{ asset('images/autop.jpg') }}" alt="" class="circle">
-                                <span class="title"><a href="{{ path('users_show', {'id': 1})  }}">{{ com.author.username }}</a></span>
-                                <p>{{ com.date ? com.date|date('Y-m-d H:i:s') : '' }}<br>
-                                    {{ com.content }}
+                                <span class="title"><a href="{{ path('users_show', {'id': 1})  }}">{{ comment.author.username }}</a></span>
+                                <p>{{ comment.date ? comment.date|date('Y-m-d H:i:s') : '' }}<br>
+                                    {{ comment.content }}
                                 </p>
+                                {{ include('comments/_delete_form.html.twig') }}
                                 {# <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a> #}
                             </li>
                                 
@@ -39,12 +40,13 @@
                         </div>
                     </div>
                     <div class="card-action">
-
+                        <h4>Comment this post</h4>
                         {{ include('comments/_form.html.twig') }}
                         
                         <hr>
 
-                        <a class="" href="{{ path('comments_new', {'id': post.id}) }}">Comment this post</a>
+                        {# <a class="" href="{{ path('comments_new', {'id': post.id}) }}">Comment this post</a> #}
+                        <a class="waves-effect waves-light btn" href="{{ path('posts_index') }}">back to list</a>
                         <a class="waves-effect waves-light btn" href="{{ path('posts_edit', {'id': post.id}) }}">edit</a>
                         {{ include('posts/_delete_form.html.twig') }}
                     </div>

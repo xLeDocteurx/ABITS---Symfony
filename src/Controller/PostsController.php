@@ -79,9 +79,9 @@ class PostsController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="posts_show", methods="GET")
+     * @Route("/{id}", name="posts_show", methods="GET|POST")
      */
-    public function show(Posts $post): Response
+    public function show(Request $request, Posts $post): Response
     {
 
         // $username = $_SESSION['auth']['username'];
@@ -89,17 +89,33 @@ class PostsController extends AbstractController
         ->getRepository(Users::class)
         ->findOneByUsername('LeDocteur');
 
+
         $comment = new Comments();
         $comment->setDate(new \DateTime('now'));
         $comment->setAuthor($thisUser);
         $comment->setPost($post);
 
+        // $form = $this->createForm(CommentsType::class, $comment);
+
         $form = $this->createFormBuilder($comment)
             ->add('content', TextareaType::class)
             ->getForm();
 
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($comment);
+            $em->flush();
+
+            return $this->redirectToRoute('posts_show', [
+                'id' => $post->getId(),
+            ]);
+        }
+
         return $this->render('posts/show.html.twig', [
             'post' => $post,
+            'comment' => $comment,
             'form' => $form->createView(),
         ]);
     }
