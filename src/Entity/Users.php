@@ -68,6 +68,11 @@ class Users
      */
     private $comments;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $avatar;
+
     public function __construct()
     {
         $this->bottlesSents = new ArrayCollection();
@@ -270,6 +275,18 @@ class Users
                 $comment->setAuthor(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAvatar(): ?string
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar(?string $avatar): self
+    {
+        $this->avatar = $avatar;
 
         return $this;
     }

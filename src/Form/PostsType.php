@@ -2,6 +2,9 @@
 
 namespace App\Form;
 
+// use App\Entity\Users;
+// use App\Form\UsersType;
+
 use App\Entity\Posts;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -12,10 +15,10 @@ class PostsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            // ->add('author', UsersType::class, array('data_class' => null))
             ->add('title')
             ->add('content')
             ->add('date')
-            ->add('author')
         ;
     }
 

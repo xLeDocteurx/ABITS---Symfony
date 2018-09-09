@@ -9,6 +9,7 @@
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Avatar</th>
                 <th>Username</th>
                 <th>Country</th>
                 <th>Email</th>
@@ -23,6 +24,7 @@
         {% for user in users %}
             <tr>
                 <td>{{ user.id }}</td>
+                <td>{{ user.avatar }}</td>
                 <td>{{ user.username }}</td>
                 <td>{{ user.country }}</td>
                 <td>{{ user.email }}</td>
