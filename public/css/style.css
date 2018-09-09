@@ -1,0 +1,16 @@
+html, body {
+    height: 100%;
+}
+
+body {
+    /* font-family: 'IBM Plex Serif', serif; */
+}
+/* 
+@font-face {
+	font-family: "Digital";
+	src: url('digital.ttf');
+} */
+
+.profile_avatar {
+    width: 200px;
+}
