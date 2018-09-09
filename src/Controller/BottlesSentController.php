@@ -42,8 +42,8 @@ class BottlesSentController extends Controller
         ->getRepository(Users::class)
         ->findOneByUsername('LeDocteur');
         
-        $user_bottles = $bottlesSentRepository->findAll();
-        // $user_bottles = $bottlesSentRepository->findById($thisUser->getId());
+        // $user_bottles = $bottlesSentRepository->findAll();
+        $user_bottles = $bottlesSentRepository->findById($thisUser->getId());
 
         // $user_bottles = $bottlesSentRepository->findBy(
         //     array('receivers' => $thisUser) // Critere
