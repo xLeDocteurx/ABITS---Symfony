@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Users;
 use App\Repository\UsersRepository;
+use App\Entity\Comments;
+use App\Repository\CommentsRepository;
 
 use App\Entity\Posts;
 use App\Form\PostsType;
@@ -81,7 +83,25 @@ class PostsController extends AbstractController
      */
     public function show(Posts $post): Response
     {
-        return $this->render('posts/show.html.twig', ['post' => $post]);
+
+        // $username = $_SESSION['auth']['username'];
+        $thisUser = $this->getDoctrine()
+        ->getRepository(Users::class)
+        ->findOneByUsername('LeDocteur');
+
+        $comment = new Comments();
+        $comment->setDate(new \DateTime('now'));
+        $comment->setAuthor($thisUser);
+        $comment->setPost($post);
+
+        $form = $this->createFormBuilder($comment)
+            ->add('content', TextareaType::class)
+            ->getForm();
+
+        return $this->render('posts/show.html.twig', [
+            'post' => $post,
+            'form' => $form->createView(),
+        ]);
     }
 
     /**

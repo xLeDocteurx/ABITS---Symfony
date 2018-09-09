@@ -14,3 +14,7 @@ body {
 .profile_avatar {
     width: 200px;
 }
+
+.del_form {
+    display: inline-block;
+}
