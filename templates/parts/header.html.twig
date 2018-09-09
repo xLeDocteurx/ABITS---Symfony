@@ -6,12 +6,12 @@
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 
                 <ul id="nav-mobile-l" class="left hide-on-med-and-down">
-                    <li class=""><a href="{{ path('bottles_new') }}" title="Create a bottle">Create new</a></li>
-                    <li class=""><a href="{{ path('bottles_index') }}" title="Access all bottles\' list">All bottles</a></li>
+                    {# <li class=""><a href="{{ path('bottles_new') }}" title="Create a bottle">Create new</a></li> #}
+                    <li class=""><a href="{{ path('bottles_index') }}" title="Access all bottles\' list">My Bottles</a></li>
                     <!-- Faire une Dropdown "Bottles" pour y séparer les bouteilles écrites et les bouteilles recues -->
                     <li class=""><a href="" title="">Bottles found</a></li>
-                    <li class=""><a href="" title="">Bottles waiting</a></li>
-                    <li class=""><a href="" title="">Bottles sent</a></li>
+                    {# <li class=""><a class="disabled" href="" title="">Bottles waiting</a></li> #}
+                    {# <li class=""><a class="disabled" href="" title="">Bottles sent</a></li> #}
                 </ul>
 
                 <a class="center brand-logo hide-on-small-and-down" href="{{ path('posts_index') }}" title="ABITS - A Bottle Into The Sea">ABITS</a>

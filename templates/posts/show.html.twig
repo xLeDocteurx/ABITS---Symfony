@@ -12,6 +12,10 @@
                 <td>{{ post.id }}</td>
             </tr>
             <tr>
+                <th>Author</th>
+                <td>{{ post.author.username }}</td>
+            </tr>
+            <tr>
                 <th>Title</th>
                 <td>{{ post.title }}</td>
             </tr>
@@ -24,8 +28,21 @@
                 <td>{{ post.date ? post.date|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
             <tr>
-                <th>Author</th>
-                <td>{{ post.author.username }}</td>
+                <th>Comments</th>
+                <td>
+                {% for com in post.comments %}
+
+                    {{ com.author.username }} // {{ com.content }} <br> {{ com.date ? com.date|date('Y-m-d H:i:s') : '' }}
+                    
+                {% else %}
+                    No commentarie found
+                {% endfor %}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="{{ path('comments_new', {'id': post.id}) }}">Comment this post</a>
+                </td>
             </tr>
         </tbody>
     </table>

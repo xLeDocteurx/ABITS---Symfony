@@ -3,7 +3,9 @@
 {% block title %}Bottles index{% endblock %}
 
 {% block body %}
-    <h1>Bottles index</h1>
+    <h1>Bottles I have written</h1>
+
+    <a href="{{ path('bottles_new') }}">Create new</a>
 
     <table class="table">
         <thead>
@@ -24,11 +26,21 @@
                 <td>{{ bottle.title }}</td>
                 <td>{{ bottle.content }}</td>
                 <td>{{ bottle.date ? bottle.date|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ bottle.sent ? 'Yes' : 'No' }}</td>
+                <td>
+                    {{ bottle.sent ? '
+                    <a class="disabled waves-effect waves-light btn-small dropdown-trigger" href="#!" data-target="dropdown2">Yes<i class="material-icons right">arrow_drop_down</i></a>
+                    ' : '
+                    <ul id="dropdown2" class="dropdown-content">
+                        <li><a href="#!">Send</a></li>
+                    </ul>
+                    <a class="waves-effect waves-light btn-small dropdown-trigger" href="#!" data-target="dropdown2">No<i class="material-icons right">arrow_drop_down</i></a>
+                    ' }}
+
+                </td>
 
                 <td>
-                    <a href="{{ path('bottles_show', {'id': bottle.id}) }}">show</a>
-                    <a href="{{ path('bottles_edit', {'id': bottle.id}) }}">edit</a>
+                    <a class="waves-effect waves-light btn-small" href="{{ path('bottles_show', {'id': bottle.id}) }}">show</a>
+                    <a class="waves-effect waves-light btn-small" href="{{ path('bottles_edit', {'id': bottle.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -39,5 +51,4 @@
         </tbody>
     </table>
 
-    <a href="{{ path('bottles_new') }}">Create new</a>
 {% endblock %}

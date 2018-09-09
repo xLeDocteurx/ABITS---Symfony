@@ -32,7 +32,13 @@ class BottlesController extends AbstractController
      */
     public function index(BottlesRepository $bottlesRepository): Response
     {
-        return $this->render('bottles/index.html.twig', ['bottles' => $bottlesRepository->findAll()]);
+
+        // $username = $_SESSION['auth']['username'];
+        $thisUser = $this->getDoctrine()
+        ->getRepository(Users::class)
+        ->findOneByUsername('LeDocteur');
+
+        return $this->render('bottles/index.html.twig', ['bottles' => $bottlesRepository->findByAuthor($thisUser)]);
     }
 
     /**
@@ -40,19 +46,18 @@ class BottlesController extends AbstractController
      */
     public function new(Request $request): Response
     {
-        $bottle = new Bottles();
-        $bottle->setDate(new \DateTime('now'));
-        
+
         // $username = $_SESSION['auth']['username'];
-        $author = $this->getDoctrine()
+        $thisUser = $this->getDoctrine()
         ->getRepository(Users::class)
         ->findOneByUsername('LeDocteur');
-        // $author = new Users;
-        // $author->setUsername('LeDocteur');
 
         $bottle = new Bottles();
         $bottle->setDate(new \DateTime('now'));
-        $bottle->setAuthor($author);
+        
+        $bottle = new Bottles();
+        $bottle->setDate(new \DateTime('now'));
+        $bottle->setAuthor($thisUser);
         $bottle->setSent(false);
 
         // $form = $this->createForm(BottlesType::class, $bottle);

@@ -24,6 +24,7 @@ use Symfony\Component\Form\FormTypeInterface;
 
 /**
  * @Route("/posts")
+ * @Route("/")
  */
 class PostsController extends AbstractController
 {
