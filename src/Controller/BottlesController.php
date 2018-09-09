@@ -51,9 +51,6 @@ class BottlesController extends AbstractController
         $thisUser = $this->getDoctrine()
         ->getRepository(Users::class)
         ->findOneByUsername('LeDocteur');
-
-        $bottle = new Bottles();
-        $bottle->setDate(new \DateTime('now'));
         
         $bottle = new Bottles();
         $bottle->setDate(new \DateTime('now'));

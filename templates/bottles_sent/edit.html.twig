@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit BottlesSent{% endblock %}
+
+{% block body %}
+    <h1>Edit BottlesSent</h1>
+
+    {{ include('bottles_sent/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('bottles_sent_index') }}">back to list</a>
+
+    {{ include('bottles_sent/_delete_form.html.twig') }}
+{% endblock %}

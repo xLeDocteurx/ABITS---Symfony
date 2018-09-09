@@ -1,51 +1,56 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Posts{% endblock %}
+{% block title %}#{{ post.id }} : {{ post.title }}{% endblock %}
 
 {% block body %}
-    <h1>Posts</h1>
+    {# <h1>#{{ post.id }} : {{ post.title }}</h1> #}
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ post.id }}</td>
-            </tr>
-            <tr>
-                <th>Author</th>
-                <td>{{ post.author.username }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ post.title }}</td>
-            </tr>
-            <tr>
-                <th>Content</th>
-                <td>{{ post.content }}</td>
-            </tr>
-            <tr>
-                <th>Date</th>
-                <td>{{ post.date ? post.date|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Comments</th>
-                <td>
-                {% for com in post.comments %}
 
-                    {{ com.author.username }} // {{ com.content }} <br> {{ com.date ? com.date|date('Y-m-d H:i:s') : '' }}
-                    
-                {% else %}
-                    No commentarie found
-                {% endfor %}
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <a href="{{ path('comments_new', {'id': post.id}) }}">Comment this post</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+        <div class="row">
+            <div class="col s12 m8 offset-m2">
+                <div class="card">
+                    <div class="card-image">
+                        <a href="{{ path('posts_show', {'id': post.id}) }}"><img src="{{ asset('images/sample-1.jpg') }}" alt="Card Image">
+                        <span class="card-title">#{{ post.id }} : {{ post.title }}</span></a>
+                    </div>
+                    <div class="card-content">
+                        {{ post.date ? post.date|date('Y-m-d H:i:s') : '' }} / By : <a href="{{ path('users_show', {'id': post.author.id}) }}">{{ post.author.username }}</a>
+                        <p>{{ post.content }}</p>
+                    </div>
+                    <div class="card-content">
+                        <h4>Comments</h4>
+                        <div>
+                          <ul class="collection">
+                            {% for com in post.comments %}
+
+                            <li class="collection-item avatar">
+                                <img src="{{ asset('images/autop.jpg') }}" alt="" class="circle">
+                                <span class="title"><a href="{{ path('users_show', {'id': 1})  }}">{{ com.author.username }}</a></span>
+                                <p>{{ com.date ? com.date|date('Y-m-d H:i:s') : '' }}<br>
+                                    {{ com.content }}
+                                </p>
+                                {# <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a> #}
+                            </li>
+                                
+                            {% else %}
+                                No commentarie found
+                            {% endfor %}
+                        </div>
+                        <a class="waves-effect waves-light btn" href="{{ path('comments_new', {'id': post.id}) }}">Comment this post</a>
+                    </div>
+                    <div class="card-action">
+                        <a href="{{ path('posts_show', {'id': post.id}) }}">show</a>
+                        <a href="{{ path('posts_edit', {'id': post.id}) }}">edit</a>
+                    </div>
+                </div>
+                    <tr>
+                    </tr>
+                    <tr>
+                        <td>
+                        </td>
+                    </tr>
+            </div>
+        </div>
 
     <a href="{{ path('posts_index') }}">back to list</a>
 

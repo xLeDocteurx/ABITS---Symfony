@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}BottlesSent index{% endblock %}
+
+{% block body %}
+    <h1>Bottles I have found</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Bottle</th>
+                <th>Receiver</th>
+
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for bottles_sent in bottles_sents %}
+            <tr>
+                <td>{{ bottles_sent.id }}</td>
+                <td>#{{ bottles_sent.bottle.id }} : {{ bottles_sent.bottle.title }}</td>
+                {% for receiver in bottles_sent.receivers %}
+                    <td>{{ receiver.username }}</td>
+                {% else %}
+                    <td>No receivers WHAT THE HACK CALL 911</td>
+                {% endfor %}
+                {# <td>{{ bottles_sent.bottle.id }}</td> #}
+                {# <td>{{ bottles_sent.receiver.id }}</td> #}
+
+                <td>
+                    <a href="{{ path('bottles_sent_show', {'id': bottles_sent.id}) }}">show</a>
+                    <a href="{{ path('bottles_sent_edit', {'id': bottles_sent.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="2">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('bottles_sent_new') }}">Create new</a>
+{% endblock %}
