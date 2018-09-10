@@ -12,9 +12,9 @@ class CommentsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            // ->add('author')
+            // ->add('date')
             ->add('content')
-            ->add('date')
-            ->add('author')
         ;
     }
 

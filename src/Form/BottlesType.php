@@ -12,13 +12,13 @@ class BottlesType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            // ->add('author')
+            // ->add('date')
             ->add('title')
             ->add('content')
-            ->add('date')
             ->add('sent')
             ->add('tags')
-            ->add('bottlesSent')
-            ->add('author')
+            // ->add('bottlesSent')
         ;
     }
 

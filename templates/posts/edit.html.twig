@@ -9,7 +9,6 @@
         <label for="posts_author" class="required active">Author</label>
         <input type="text" id="posts_author" name="posts[author]" maxlength="255" value="{{ post.author.username }}" disabled>
     </div>
-    <inpur type="text" disabled></inpur>
 
     {{ include('posts/_form.html.twig', {'button_label': 'Update'}) }}
 

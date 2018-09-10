@@ -16,9 +16,9 @@ class PostsType extends AbstractType
     {
         $builder
             // ->add('author', UsersType::class, array('data_class' => null))
+            // ->add('date')
             ->add('title')
             ->add('content')
-            ->add('date')
         ;
     }
 

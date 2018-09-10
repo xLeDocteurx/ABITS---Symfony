@@ -4,6 +4,11 @@
 
 {% block body %}
     <h1>Edit Comments</h1>
+    
+    <div>
+        <label for="comments_author" class="required active">Author</label>
+        <input type="text" id="comments_author" name="posts[author]" maxlength="255" value="{{ comment.author.username }}" disabled>
+    </div>
 
     {{ include('comments/_form.html.twig', {'button_label': 'Update'}) }}
 
