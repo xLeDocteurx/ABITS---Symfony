@@ -33,6 +33,14 @@ class UsersController extends AbstractController
     }
 
     /**
+     * @Route("/login", name="users_login", methods="GET|POST")
+     */
+    public function login(){
+        
+        return $this->render('users/login.html.twig');
+    }
+
+    /**
      * @Route("/new", name="users_new", methods="GET|POST")
      */
     public function new(Request $request): Response

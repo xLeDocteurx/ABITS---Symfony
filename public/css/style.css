@@ -19,7 +19,27 @@ body {
     display: inline-block;
 }
 
-#post_show_cardimage {
-    height:250px;
+.card-image-index {
+    height: 240px;
     overflow: hidden;
+
+    background-color: slategrey;
 }
+
+.card-image-show {
+    height: 480px;
+    height: 360px;
+    overflow: hidden;
+
+    background-color: slategrey;
+}
+
+.pagination-container {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+/* #post_show_cardimage {
+    height:240px;
+    overflow: hidden;
+} */

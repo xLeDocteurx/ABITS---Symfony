@@ -9,7 +9,7 @@
         <div class="container row">
             <div class="col s12">
                 <div class="card">
-                    <div id="post_show_cardimage" class="card-image">
+                    <div id="post_show_cardimage" class="card-image card-image-show">
                         <a href="{{ path('posts_show', {'id': post.id}) }}"><img src="{{ asset('images/sample-1.jpg') }}" alt="Card Image">
                         <span class="card-title">#{{ post.id }} : {{ post.title }}</span></a>
                         <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
@@ -31,61 +31,86 @@
                         <p>{{ post.content }}</p>
                     </div>
                     <div class="card-content">
-                        <h4>Comments</h4>
-                        <div>
-                        
 
-    <ul class="pagination center-align">
-        <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-        <li class="active"><a href="#!">1</a></li>
-        <li class="disabled waves-effect"><a href="#!">2</a></li>
-        <li class="disabled waves-effect"><a href="#!">3</a></li>
-        <li class="disabled waves-effect"><a href="#!">4</a></li>
-        <li class="disabled waves-effect"><a href="#!">5</a></li>
-        <li class="disabled waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
-    </ul>
-                            <ul class="collection">
-                                {% for comment in post.comments %}
+                        {# <ul class="collapsible">
+                            <li class="active">
+                                <div class="collapsible-header">
+                                    <i class="material-icons">filter_drama</i>
+                                    <h4>Comments</h4>
+                                </div>
+                                <div class="collapsible-body"> #}
+                                <div class="card-content">
+                                    <div class="card-panel">
+                                        <h4>Comments</h4>
+                                    </div>
+                                </div>
 
-                                <li class="collection-item avatar">
-                                    <img src="{{ comment.author.avatar }}" alt="" class="circle">
-                                    <span class="title"><a href="{{ path('users_show', {'id': 1})  }}">{{ comment.author.username }}</a></span>
-                                    <p>{{ comment.date ? comment.date|date('Y-m-d H:i:s') : '' }}<br>
-                                        {{ comment.content }}
-                                    </p>
-                                    {{ include('comments/_delete_form.html.twig') }}
-                                    {# <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a> #}
-                                </li>
-                                    
-                                {% else %}
-                                    No commentarie found
-                                {% endfor %}
-                            </ul>
+                                <ul class="pagination center-align pagination-container">
+                                    <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+                                    <li class="active"><a href="#!">1</a></li>
+                                    <li class="disabled waves-effect"><a href="#!">2</a></li>
+                                    <li class="disabled waves-effect"><a href="#!">3</a></li>
+                                    <li class="disabled waves-effect"><a href="#!">4</a></li>
+                                    <li class="disabled waves-effect"><a href="#!">5</a></li>
+                                    <li class="disabled waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+                                </ul>
 
+                                <div class="card-content">
 
-    <ul class="pagination center-align">
-        <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-        <li class="active"><a href="#!">1</a></li>
-        <li class="disabled waves-effect"><a href="#!">2</a></li>
-        <li class="disabled waves-effect"><a href="#!">3</a></li>
-        <li class="disabled waves-effect"><a href="#!">4</a></li>
-        <li class="disabled waves-effect"><a href="#!">5</a></li>
-        <li class="disabled waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
-    </ul>
-                        </div>
-                    </div>
-                    <div class="card-action">
-                        <h4>Comment this post</h4>
-                        {{ include('comments/_form.html.twig') }}
-                    </div>
+                                    <ul class="collection collapsible">
+                                        {% for comment in post.comments %}
+
+                                        <li class="collection-item avatar">
+                                            <img src="{{ comment.author.avatar }}" alt="" class="circle">
+                                            <span class="title"><a href="{{ path('users_show', {'id': comment.author.id})  }}">{{ comment.author.username }}</a></span>
+                                            <p>{{ comment.date ? comment.date|date('Y-m-d H:i:s') : '' }}<br>
+                                                {{ comment.content }}
+                                            </p>
+                                            {{ include('comments/_delete_form.html.twig') }}
+                                            {# <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a> #}
+                                        </li>
+                                            
+                                        {% else %}
+                                            No commentarie found
+                                        {% endfor %}
+                                    </ul>
+
+                                </div>
+
+                                    <ul class="pagination center-align pagination-container">
+                                        <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+                                        <li class="active"><a href="#!">1</a></li>
+                                        <li class="disabled waves-effect"><a href="#!">2</a></li>
+                                        <li class="disabled waves-effect"><a href="#!">3</a></li>
+                                        <li class="disabled waves-effect"><a href="#!">4</a></li>
+                                        <li class="disabled waves-effect"><a href="#!">5</a></li>
+                                        <li class="disabled waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+                                    </ul>
+
+                                {# </div>
+                            </li>
+                        </ul> #}
+
+                    <div>
                 </div>
-                    <tr>
-                    </tr>
-                    <tr>
-                        <td>
-                        </td>
-                    </tr>
+            </div>
+            <div class="card-action">
+
+                <ul class="collapsible">
+                    <li>
+                        <div class="collapsible-header">
+                            <i class="material-icons align-right">message</i>
+                            <h4>Comment this post</h4>
+                        </div>
+                        <div class="collapsible-body">
+                            {{ include('comments/_form.html.twig') }}
+                        </div>
+                    </li>
+                </ul>
+
             </div>
         </div>
+    </div>
+</div>
 
 {% endblock %}
