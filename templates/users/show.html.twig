@@ -14,7 +14,7 @@
             </tr>
             <tr>
                 <th>Avatar</th>
-                <td>{{ user.avatar }}</td>
+                <td><img class="profile_avatar" src="{{ user.avatar ? user.avatar : '/images/yuna.jpg' }}"></td>
             </tr>
             <tr>
                 <th>Username</th>

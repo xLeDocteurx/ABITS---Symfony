@@ -22,7 +22,7 @@
 
                 <ul id="nav-mobile-r" class="right hide-on-small-and-down">
                     <li class="{{ app.request.get('_route') == 'users_index' ? 'active' : '' }}"><a href="{{ path('users_index') }}" title="">Profile</a></li>
-                    <li class="{{ app.request.get('_route') == 'xxx' ? 'active' : '' }}"><a href="" title="">Log In</a></li>
+                    <li class="{{ app.request.get('_route') == 'users_login' ? 'active' : '' }}"><a href="{{ path('users_login') }}" title="">Log In</a></li>
                     <li class="{{ app.request.get('_route') == 'users_new' ? 'active' : '' }}"><a href="{{ path('users_new') }}" title="">Register</a></li>
                 </ul>
                 
@@ -48,7 +48,7 @@
     <div class="hide-on-med-and-up">
         <hr class="">
                     <li class="{{ app.request.get('_route') == 'users_index' ? 'active' : '' }}"><a href="{{ path('users_index') }}" title="">Profile</a></li>
-                    <li class="{{ app.request.get('_route') == 'xxx' ? 'active' : '' }}"><a href="" title="">Log In</a></li>
+                    <li class="{{ app.request.get('_route') == 'users_login' ? 'active' : '' }}"><a href="{{ path('users_login') }}" title="">Log In</a></li>
                     <li class="{{ app.request.get('_route') == 'users_new' ? 'active' : '' }}"><a href="{{ path('users_new') }}" title="">Register</a></li>
     </div>
 </ul>

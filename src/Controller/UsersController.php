@@ -35,9 +35,26 @@ class UsersController extends AbstractController
     /**
      * @Route("/login", name="users_login", methods="GET|POST")
      */
-    public function login(){
+    public function login(Request $request): Response
+    {
         
-        return $this->render('users/login.html.twig');
+        $user = new Users();
+        $user->setConfirmed(false);
+        $form = $this->createForm(UsersType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+
+            return $this->redirectToRoute('posts_index');
+        }
+
+        return $this->render('users/login.html.twig', [
+            'user' => $user,
+            'form' => $form->createView(),
+        ]);
     }
 
     /**

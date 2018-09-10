@@ -12,7 +12,7 @@ body {
 } */
 
 .profile_avatar {
-    width: 200px;
+    max-width: 200px;
 }
 
 .del_form {
@@ -20,15 +20,15 @@ body {
 }
 
 .card-image-index {
-    height: 240px;
+    max-height: 240px;
     overflow: hidden;
 
     background-color: slategrey;
 }
 
 .card-image-show {
-    height: 480px;
-    height: 360px;
+    max-height: 480px;
+    max-height: 360px;
     overflow: hidden;
 
     background-color: slategrey;
@@ -39,7 +39,12 @@ body {
     margin-bottom: 0px;
 }
 
+.bg-redd {
+    background-color: #ee6e73;
+    color: #fff;
+}
+
 /* #post_show_cardimage {
-    height:240px;
+    max-height:240px;
     overflow: hidden;
 } */

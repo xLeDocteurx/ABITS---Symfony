@@ -58,10 +58,11 @@
                                 <div class="card-content">
 
                                     <ul class="collection collapsible">
+                                    
                                         {% for comment in post.comments %}
 
                                         <li class="collection-item avatar">
-                                            <img src="{{ comment.author.avatar }}" alt="" class="circle">
+                                            <img src="{{ comment.author.avatar ? comment.author.avatar : '/images/yuna.jpg' }}" alt="" class="circle">
                                             <span class="title"><a href="{{ path('users_show', {'id': comment.author.id})  }}">{{ comment.author.username }}</a></span>
                                             <p>{{ comment.date ? comment.date|date('Y-m-d H:i:s') : '' }}<br>
                                                 {{ comment.content }}
@@ -75,8 +76,6 @@
                                         {% endfor %}
                                     </ul>
 
-                                </div>
-
                                     <ul class="pagination center-align pagination-container">
                                         <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
                                         <li class="active"><a href="#!">1</a></li>
@@ -86,6 +85,8 @@
                                         <li class="disabled waves-effect"><a href="#!">5</a></li>
                                         <li class="disabled waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
                                     </ul>
+
+                                </div>
 
                                 {# </div>
                             </li>
@@ -97,7 +98,7 @@
             <div class="card-action">
 
                 <ul class="collapsible">
-                    <li>
+                    <li class="active">
                         <div class="collapsible-header">
                             <i class="material-icons align-right">message</i>
                             <h4>Comment this post</h4>
