@@ -40,13 +40,18 @@ class UsersController extends AbstractController
         
         $user = new Users();
         $user->setConfirmed(false);
-        $form = $this->createForm(UsersType::class, $user);
+
+        $form = $this->createFormBuilder($user)
+            ->add('email')
+            ->add('password')
+            ->getForm();
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
-            $em->flush();
+            // $em = $this->getDoctrine()->getManager();
+            // $em->persist($user);
+            // $em->flush();
 
             return $this->redirectToRoute('posts_index');
         }
@@ -94,7 +99,15 @@ class UsersController extends AbstractController
      */
     public function edit(Request $request, Users $user): Response
     {
-        $form = $this->createForm(UsersType::class, $user);
+
+        $form = $this->createFormBuilder($user)
+            ->add('avatar')
+            ->add('country')
+            ->add('email')
+            ->add('password')
+            ->add('bio')
+            ->getForm();
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
