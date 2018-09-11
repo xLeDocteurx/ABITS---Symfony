@@ -39,44 +39,25 @@ class BottlesController extends AbstractController
 
         return $this->render('bottles/index.html.twig', ['bottles' => $bottlesRepository->findByAuthor($thisUser)]);
     }
-
+    
     /**
      * @Route("/send", name="bottles_send", methods="GET|POST")
      */
     public function send(Request $request, BottlesRepository $bottlesRepository): Response
     {
-        // $username = $_SESSION['auth']['username'];
-        $thisUser = $this->getDoctrine()
-        ->getRepository(Users::class)
-        ->findOneByUsername('LeDocteur');
-
-        if (isset($_POST['bottleId'])) {
-            
-            $bottle = $this->getDoctrine()
-            ->getRepository(Bottles::class)
-            ->findOneById($_POST['bottleId']);
-            
-        //     if ($form->isSubmitted() && $form->isValid()) {
-
-        //         $bottle->setSent(true);
-
-        //         $em = $this->getDoctrine()->getManager();
-        //         $em->persist($bottle);
-        //         $em->flush();
-    
-        //         $this->getDoctrine()->getManager()
-        //         ->flush();
-    
-        //         return $this->redirectToRoute('users_index');
-        //     }
-
-        }
         
-        return $this->render('bottles/sending.html.twig', [
-            'user' => $thisUser,
-            'bottle' => $bottle,
-            'bottles' => $bottlesRepository->findByAuthor($thisUser)
-            ]);
+        $bottle = $this->getDoctrine()
+        ->getRepository(Bottles::class)
+        ->findOneById($_POST['bottleId']);
+        
+            
+                    $bottle->setSent(true);
+            
+                    $em = $this->getDoctrine()->getManager();
+                    $em->persist($bottle);
+                    $em->flush();
+            
+        return $this->redirectToRoute('bottles_index');
     }
 
     /**

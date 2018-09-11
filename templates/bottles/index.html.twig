@@ -6,7 +6,6 @@
 <h1>Bottles I have written</h1>
 
     <a href="{{ path('bottles_new') }}">Create new</a>
-
     <table class="table">
         <thead>
             <tr>
@@ -35,7 +34,7 @@
 
                                 <form action="{{ path('bottles_send') }}" method="POST">
                                     <input class="hide" name="bottleId" type="number" value="{{ bottle.id }}">
-                                    <button class="btn btn-large" type="submit">Send</button>
+                                    <button class="btn btn-large" type="submit" onclick="confirm('Are you sure you want to save this thing into the database?');">Send</button>
                                 </form>
 
                             </li>

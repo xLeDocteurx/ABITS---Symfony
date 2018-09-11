@@ -25,7 +25,23 @@
             </tr>
             <tr>
                 <th>Sent</th>
-                <td>{{ bottle.sent ? 'Yes' : 'No' }}</td>
+                <td>
+                {% if bottle.sent %}
+                    <a class="disabled waves-effect waves-light btn-small dropdown-trigger" href="#!" data-target="dropdown2">Yes<i class="material-icons right">arrow_drop_down</i></a>
+                {% else %}
+                    <ul id="dropdown2" class="dropdown-content">
+                        <li>
+
+                            <form action="{{ path('bottles_send') }}" method="POST">
+                                <input class="hide" name="bottleId" type="number" value="{{ bottle.id }}">
+                                <button class="btn btn-large" type="submit">Send</button>
+                            </form>
+
+                        </li>
+                    </ul>
+                    <a class="waves-effect waves-light lighten-2 btn-small dropdown-trigger" href="#!" data-target="dropdown2">No<i class="material-icons right">arrow_drop_down</i></a>
+                {% endif %}
+                </td>
             </tr>
         </tbody>
     </table>
