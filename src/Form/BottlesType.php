@@ -16,8 +16,8 @@ class BottlesType extends AbstractType
             // ->add('date')
             ->add('title')
             ->add('content')
-            ->add('sent')
-            ->add('tags')
+            // ->add('sent')
+            // ->add('tags')
             // ->add('bottlesSent')
         ;
     }

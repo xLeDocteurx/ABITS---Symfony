@@ -44,6 +44,11 @@ body {
     color: #fff;
 }
 
+.bg-redd:hover {
+    background-color: #f18a8e;
+    color: #fff;
+}
+
 /* #post_show_cardimage {
     max-height:240px;
     overflow: hidden;
