@@ -20,11 +20,15 @@
             <tr>
                 <td>{{ bottles_sent.id }}</td>
                 <td>#{{ bottles_sent.bottle.id }} : {{ bottles_sent.bottle.title }}</td>
+                
+                <td>
                 {% for receiver in bottles_sent.receivers %}
-                    <td>{{ receiver.username }}</td>
+                    {{ receiver.username }} . 
                 {% else %}
-                    <td>No receivers WHAT THE HACK CALL 911</td>
+                    No receivers WHAT THE HACK CALL 911
                 {% endfor %}
+                </td>
+
                 {# <td>{{ bottles_sent.bottle.id }}</td> #}
                 {# <td>{{ bottles_sent.receiver.id }}</td> #}
 

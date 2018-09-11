@@ -39,7 +39,7 @@ body {
     margin-bottom: 0px;
 }
 
-.bg-redd {
+/* .bg-redd {
     background-color: #ee6e73;
     color: #fff;
 }
@@ -48,6 +48,12 @@ body {
     background-color: #f18a8e;
     color: #fff;
 }
+
+.bg-redd:active, bg-redd:visited, bg-redd:link {
+    background-color: #ee6e73;
+    color: #fff;
+} */
+
 
 /* #post_show_cardimage {
     max-height:240px;
