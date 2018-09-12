@@ -31,7 +31,7 @@
                     {% else %}
                         <ul id="dropdown2" class="dropdown-content">
                             <li>
-
+                                {{ bottle.id }}
                                 <form action="{{ path('bottles_send') }}" method="POST">
                                     <input class="" name="bottleId" type="number" value="{{ bottle.id }}">
                                     <button class="btn btn-large" type="submit" onclick="confirm('Are you sure you want to save this thing into the database?');">Send</button>
