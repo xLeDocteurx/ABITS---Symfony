@@ -61,11 +61,27 @@ class BottlesController extends AbstractController
     }
 
     /**
+     * @Route("/beach", name="bottles_beach", methods="GET|POST")
+     */
+    public function beach(Request $request, BottlesRepository $bottlesRepository): Response
+    {
+        
+        // $username = $_SESSION['auth']['username'];
+        $thisUser = $this->getDoctrine()
+        ->getRepository(Users::class)
+        ->findOneByUsername('LeDocteur');
+        
+        return $this->render('bottles/beach.html.twig', [
+            'bottles' => $bottlesRepository->findByAuthor($thisUser),
+        ]);
+    }
+
+    /**
      * @Route("/new", name="bottles_new", methods="GET|POST")
      */
     public function new(Request $request): Response
     {
-
+        
         // $username = $_SESSION['auth']['username'];
         $thisUser = $this->getDoctrine()
         ->getRepository(Users::class)
