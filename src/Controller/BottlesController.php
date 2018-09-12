@@ -72,7 +72,7 @@ class BottlesController extends AbstractController
         ->findOneByUsername('LeDocteur');
         
         return $this->render('bottles/beach.html.twig', [
-            'bottles' => $bottlesRepository->findByAuthor($thisUser),
+            'bottles' => $bottlesRepository->findBySent(true),
         ]);
     }
 
