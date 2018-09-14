@@ -22,6 +22,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Component\Form\FormTypeInterface;
@@ -42,8 +43,11 @@ class BottlesSentController extends Controller
         ->getRepository(Users::class)
         ->findOneByUsername('LeDocteur');
         
-        $user_bottles = $bottlesSentRepository->findAll();
+        $user_bottles = $thisUser->getBottlesSents();
+
+        // $user_bottles = $bottlesSentRepository->findAll();
         // $user_bottles = $bottlesSentRepository->findById($thisUser->getId());
+        // $user_bottles = $bottlesSentRepository->findByReceivers($thisUser->getId());
         // $user_bottles = $bottlesSentRepository->findByReceivers($thisUser->getId());
 
         // $user_bottles = $bottlesSentRepository->findBy(
@@ -55,6 +59,7 @@ class BottlesSentController extends Controller
 
         return $this->render('bottles_sent/index.html.twig', ['bottles_sents' => $user_bottles]);
     }
+
     /**
      * @Route("/all", name="bottles_sent_all", methods="GET")
      */

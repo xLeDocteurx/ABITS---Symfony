@@ -10,33 +10,38 @@
             <tr>
                 <th>Id</th>
                 <th>Bottle</th>
-                <th>Receiver</th>
+                <th>Sender</th>
+                <th>Receivers</th>
 
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for bottles_sent in bottles_sents %}
-            <tr>
-                <td>{{ bottles_sent.id }}</td>
-                <td>#{{ bottles_sent.bottle.id }} : {{ bottles_sent.bottle.title }}</td>
-                
-                <td>
-                {% for receiver in bottles_sent.receivers %}
-                    {{ receiver.username }} . 
-                {% else %}
-                    No receivers WHAT THE HACK CALL 911
-                {% endfor %}
-                </td>
+        {% if bottles_sent.receivers != null %}
+                <tr>
+                    <td>{{ bottles_sent.id }}</td>
+                    <td>#{{ bottles_sent.bottle.id }} : {{ bottles_sent.bottle.title }}</td>
+                    
+                    <td>{{ bottles_sent.bottle.author.username }}</td>
+                    <td>
+                    {% for receiver in bottles_sent.receivers %}
+                        {{ receiver.username }} . 
+                    {% else %}
+                        {# No receivers WHAT THE HACK CALL 911 #}
+                        No receivers yet
+                    {% endfor %}
+                    </td>
 
-                {# <td>{{ bottles_sent.bottle.id }}</td> #}
-                {# <td>{{ bottles_sent.receiver.id }}</td> #}
+                    {# <td>{{ bottles_sent.bottle.id }}</td> #}
+                    {# <td>{{ bottles_sent.receiver.id }}</td> #}
 
-                <td>
-                    <a href="{{ path('bottles_sent_show', {'id': bottles_sent.id}) }}">show</a>
-                    <a href="{{ path('bottles_sent_edit', {'id': bottles_sent.id}) }}">edit</a>
-                </td>
-            </tr>
+                    <td>
+                        <a class="waves-effect waves-light btn-small" href="{{ path('bottles_sent_show', {'id': bottles_sent.id}) }}">show</a>
+                        <a class="waves-effect waves-light btn-small" href="{{ path('bottles_sent_edit', {'id': bottles_sent.id}) }}">edit</a>
+                    </td>
+                </tr>
+            {% endif %}
         {% else %}
             <tr>
                 <td colspan="2">no records found</td>

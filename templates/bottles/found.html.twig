@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bottles index{% endblock %}
+
+{% block body %}
+<h1>The Beach</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Receivers</th>
+                <th>Content</th>
+                <th>Date</th>
+                
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for bottle in bottles %}
+            <tr>
+                <td>{{ bottle.bottle.id }}</td>
+                <td>{{ bottle.bottle.title }}</td>
+                <td>{{ bottle.bottle.author.username }}</td>
+                <td>           
+                    {# {{ bottle.bottle.receivers }}          #}
+                    {% for receiver in bottle.bottle.receivers %}
+                        {{ receiver.username }} . 
+                    {% else %}
+                        No receivers yet
+                    {% endfor %}
+                </td>
+                <td>{{ bottle.bottle.content }}</td>
+                <td>{{ bottle.bottle.date ? bottle.bottle.date|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a class="waves-effect waves-light btn-small" href="{{ path('bottles_show', {'id': bottle.bottle.id}) }}">show</a>
+                    <a class="waves-effect waves-light btn-small" href="{{ path('bottles_edit', {'id': bottle.bottle.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
