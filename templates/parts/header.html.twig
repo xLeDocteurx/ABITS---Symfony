@@ -13,7 +13,7 @@
                     <li class="{{ app.request.get('_route') == 'bottles_index' ? 'active' : '' }}"><a href="{{ path('bottles_index') }}" title="Access all bottles\' list">My Bottles</a></li>
                     <li class="{{ app.request.get('_route') == 'bottles_beach' ? 'active' : '' }}"><a class="disabled" href="{{ path('bottles_beach') }}" title="">The beach</a></li>
                     <!-- Faire une Dropdown "Bottles" pour y séparer les bouteilles écrites et les bouteilles recues -->
-                    <li class="{{ app.request.get('_route') == 'bottles_sent_index' ? 'active' : '' }}"><a href="{{ path('bottles_sent_index') }}" title="">Bottles found</a></li>
+                    <li class="{{ app.request.get('_route') == 'bottles_found' ? 'active' : '' }}"><a href="{{ path('bottles_found') }}" title="">Bottles found</a></li>
                     {# <li class="{{ app.request.get('_route') == 'xxx' ? 'active' : '' }}"><a class="disabled" href="" title="">Bottles waiting</a></li> #}
                     {# <li class="{{ app.request.get('_route') == 'xxx' ? 'active' : '' }}"><a class="disabled" href="" title="">Bottles sent</a></li> #}
                 
@@ -43,7 +43,7 @@
                     <li class="{{ app.request.get('_route') == 'bottles_index' ? 'active' : '' }}"><a href="{{ path('bottles_index') }}" title="Access all bottles\' list">My Bottles</a></li>
                     <li class="{{ app.request.get('_route') == 'bottles_beach' ? 'active' : '' }}"><a class="disabled" href="{{ path('bottles_beach') }}" title="">The beach</a></li>
                     <!-- Faire une Dropdown "Bottles" pour y séparer les bouteilles écrites et les bouteilles recues -->
-                    <li class="{{ app.request.get('_route') == 'bottles_sent_index' ? 'active' : '' }}"><a href="{{ path('bottles_sent_index') }}" title="">Bottles found</a></li>
+                    <li class="{{ app.request.get('_route') == 'bottles_found' ? 'active' : '' }}"><a href="{{ path('bottles_found') }}" title="">Bottles found</a></li>
                     {# <li class="{{ app.request.get('_route') == 'xxx' ? 'active' : '' }}"><a class="disabled" href="" title="">Bottles waiting</a></li> #}
                     {# <li class="{{ app.request.get('_route') == 'xxx' ? 'active' : '' }}"><a class="disabled" href="" title="">Bottles sent</a></li> #}
 

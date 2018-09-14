@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Users;
+use App\Form\UsersType;
 use App\Repository\UsersRepository;
 
 use App\Entity\Bottles;
