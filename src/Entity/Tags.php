@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -21,6 +23,16 @@ class Tags
      */
     private $word;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Bottles", inversedBy="tags")
+     */
+    private $bottles;
+
+    public function __construct()
+    {
+        $this->bottles = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -34,6 +46,32 @@ class Tags
     public function setWord(string $word): self
     {
         $this->word = $word;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Bottles[]
+     */
+    public function getBottles(): Collection
+    {
+        return $this->bottles;
+    }
+
+    public function addBottle(Bottles $bottle): self
+    {
+        if (!$this->bottles->contains($bottle)) {
+            $this->bottles[] = $bottle;
+        }
+
+        return $this;
+    }
+
+    public function removeBottle(Bottles $bottle): self
+    {
+        if ($this->bottles->contains($bottle)) {
+            $this->bottles->removeElement($bottle);
+        }
 
         return $this;
     }

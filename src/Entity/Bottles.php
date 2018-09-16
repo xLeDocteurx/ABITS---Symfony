@@ -39,11 +39,6 @@ class Bottles
     private $sent;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Tags", mappedBy="bottles")
-     */
-    private $tags;
-
-    /**
      * @ORM\OneToOne(targetEntity="App\Entity\BottlesSent", mappedBy="bottle", cascade={"persist", "remove"})
      */
     private $bottlesSent;
@@ -53,6 +48,11 @@ class Bottles
      * @ORM\JoinColumn(nullable=false)
      */
     private $author;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Tags", mappedBy="bottles")
+     */
+    private $tags;
 
     public function __construct()
     {
@@ -112,6 +112,36 @@ class Bottles
         return $this;
     }
 
+    public function getBottlesSent(): ?BottlesSent
+    {
+        return $this->bottlesSent;
+    }
+
+    public function setBottlesSent(?BottlesSent $bottlesSent): self
+    {
+        $this->bottlesSent = $bottlesSent;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newBottle = $bottlesSent === null ? null : $this;
+        if ($newBottle !== $bottlesSent->getBottle()) {
+            $bottlesSent->setBottle($newBottle);
+        }
+
+        return $this;
+    }
+
+    public function getAuthor(): ?Users
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?Users $author): self
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
     /**
      * @return Collection|Tags[]
      */
@@ -136,35 +166,6 @@ class Bottles
             $this->tags->removeElement($tag);
             $tag->removeBottle($this);
         }
-
-        return $this;
-    }
-
-    public function getBottlesSent(): ?BottlesSent
-    {
-        return $this->bottlesSent;
-    }
-
-    public function setBottlesSent(BottlesSent $bottlesSent): self
-    {
-        $this->bottlesSent = $bottlesSent;
-
-        // set the owning side of the relation if necessary
-        if ($this !== $bottlesSent->getBottle()) {
-            $bottlesSent->setBottle($this);
-        }
-
-        return $this;
-    }
-
-    public function getAuthor(): ?Users
-    {
-        return $this->author;
-    }
-
-    public function setAuthor(?Users $author): self
-    {
-        $this->author = $author;
 
         return $this;
     }
