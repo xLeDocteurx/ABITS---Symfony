@@ -67,12 +67,12 @@ class BottlesController extends AbstractController
         $em->persist($bottle);
         $em->flush();
 
-        // $bottlesSent = new BottlesSent();
-        // $bottlesSent->setBottle($bottle);
-        // $bottlesSent->setReceived(0);
+        $bottlesSent = new BottlesSent();
+        $bottlesSent->setBottle($bottle);
+        $bottlesSent->setReceived(0);
 
-        // $em->persist($bottlesSent);
-        // $em->flush();
+        $em->persist($bottlesSent);
+        $em->flush();
             
 
         return $this->redirectToRoute('bottles_index');
