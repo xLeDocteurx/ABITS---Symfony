@@ -45,7 +45,9 @@ class PostsController extends AbstractController
         //     // 0                               // Offset
         //   );
         
-        $postsIWant = array_reverse($postsRepository->findAll());
+        $postsIWant = array_reverse($postsRepository->findAll(            
+            array('id' => 'DESC')
+        ));
         return $this->render('posts/index.html.twig', ['posts' => $postsIWant]);
     }
 

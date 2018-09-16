@@ -29,6 +29,11 @@ class BottlesSent
      */
     private $receivers;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $received;
+
     public function __construct()
     {
         $this->receivers = new ArrayCollection();
@@ -73,6 +78,18 @@ class BottlesSent
         if ($this->receivers->contains($receiver)) {
             $this->receivers->removeElement($receiver);
         }
+
+        return $this;
+    }
+
+    public function getReceived(): ?bool
+    {
+        return $this->received;
+    }
+
+    public function setReceived(bool $received): self
+    {
+        $this->received = $received;
 
         return $this;
     }

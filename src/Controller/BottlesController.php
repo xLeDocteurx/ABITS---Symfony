@@ -29,6 +29,7 @@ use Symfony\Component\Form\FormTypeInterface;
 
 /**
  * @Route("/bottles")
+ * @Route("/")
  */
 class BottlesController extends AbstractController
 {
@@ -42,8 +43,11 @@ class BottlesController extends AbstractController
         ->getRepository(Users::class)
         ->findOneByUsername('LeDocteur');
 
-        // $user_bottles = $bottlesRepository->findByAuthor($thisUser);
-        $user_bottles = $thisUser->getBottles();
+        $user_bottles = $bottlesRepository->findBy(
+            array('author' => $thisUser),
+            array('id' => 'DESC')
+        );
+        // $user_bottles = $thisUser->getBottles();
 
         return $this->render('bottles/index.html.twig', ['bottles' => $user_bottles]);
     }
@@ -63,11 +67,12 @@ class BottlesController extends AbstractController
         $em->persist($bottle);
         $em->flush();
 
-        $bottlesSent = new BottlesSent();
-        $bottlesSent->setBottle($bottle);
+        // $bottlesSent = new BottlesSent();
+        // $bottlesSent->setBottle($bottle);
+        // $bottlesSent->setReceived(0);
 
-        $em->persist($bottlesSent);
-        $em->flush();
+        // $em->persist($bottlesSent);
+        // $em->flush();
             
 
         return $this->redirectToRoute('bottles_index');
@@ -82,7 +87,9 @@ class BottlesController extends AbstractController
         ->getRepository(Users::class)
         ->findOneByUsername('LeDocteur');
 
-        $bottlesFound = $thisUser->getBottlesSents();
+        $bottlesFound = $thisUser->getBottlesSents(           
+            array('id' => 'DESC')
+        );
 
         return $this->render('bottles/found.html.twig', [
             'bottles' => $bottlesFound
@@ -111,10 +118,16 @@ class BottlesController extends AbstractController
         //     }
         // }
         // $bottles_at_the_beach = $bottlesRepository->findBySent(true);
-        $bottles_at_the_beach = $bottlesRepository->findBy([
-            'sent' => 'true',
+        // $bottles_at_the_beach = $bottlesRepository->findBy([
+        
+            // $bottles_at_the_beach = $bottlesRepository->findBy([
+        $bottles_at_the_beach = $bottlesSentRepository->findBy(
+            array('received' => '0'),           
+            array('id' => 'DESC')
+        
+            // 'bottlesSent' => 'null',
             // 'bottle' => $thisUser->getUsername(),
-        ]);
+        );
 
 
         return $this->render('bottles/beach.html.twig', [
