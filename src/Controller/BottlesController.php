@@ -39,9 +39,7 @@ class BottlesController extends AbstractController
     public function index(BottlesRepository $bottlesRepository): Response
     {
         // $username = $_SESSION['auth']['username'];
-        $thisUser = $this->getDoctrine()
-        ->getRepository(Users::class)
-        ->findOneByUsername('LeDocteur');
+        $thisUser = $this->getUser();
 
         $user_bottles = $bottlesRepository->findBy(
             array('author' => $thisUser),
@@ -83,9 +81,7 @@ class BottlesController extends AbstractController
      */
     public function found(Request $request) {
 
-        $thisUser = $this->getDoctrine()
-        ->getRepository(Users::class)
-        ->findOneByUsername('LeDocteur');
+        $thisUser = $this->getUser();
 
         $bottlesFound = $thisUser->getBottlesSents(           
             array('id' => 'DESC')
@@ -103,9 +99,7 @@ class BottlesController extends AbstractController
     {
 
         // $username = $_SESSION['auth']['username'];
-        $thisUser = $this->getDoctrine()
-        ->getRepository(Users::class)
-        ->findOneByUsername('LeDocteur');
+        $thisUser = $this->getUser();
         
         // $bottles_at_the_beach = $thisUser->getBottlesSents();
 
@@ -142,9 +136,7 @@ class BottlesController extends AbstractController
     {
         
         // $username = $_SESSION['auth']['username'];
-        $thisUser = $this->getDoctrine()
-        ->getRepository(Users::class)
-        ->findOneByUsername('LeDocteur');
+        $thisUser = $this->getUser();
         
         $bottle = new Bottles();
         $bottle->setDate(new \DateTime('now'));

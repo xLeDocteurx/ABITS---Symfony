@@ -42,9 +42,7 @@ class CommentsController extends Controller
     {
 
         // $username = $_SESSION['auth']['username'];
-        $thisUser = $this->getDoctrine()
-        ->getRepository(Users::class)
-        ->findOneByUsername('LeDocteur');
+        $thisUser = $this->getUser();
 
         $thisPost = $this->getDoctrine()
         ->getRepository(Posts::class)

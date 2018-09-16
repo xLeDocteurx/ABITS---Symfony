@@ -6,26 +6,33 @@
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 
                 <ul id="nav-mobile-l" class="left hide-on-med-and-down">
-                    {# <li class="{{ app.request.get('_route') == 'users_index' ? 'active' : '' }}"><a href="{{ path('users_index') }}" title="">All Users</a></li> #}
-                    {# <li class="{{ app.request.get('_route') == 'bottles_sent_all' ? 'active' : '' }}"><a href="{{ path('bottles_sent_all') }}" title="">All bottles found</a></li> #}
-                    {# <li class="{{ app.request.get('_route') == 'comments_index' ? 'active' : '' }}"><a href="{{ path('comments_index') }}" title="">All comments</a></li> #}
-                    {# <li class="{{ app.request.get('_route') == 'bottles_new' ? 'active' : '' }}"><a href="{{ path('bottles_new') }}" title="Create a bottle">Create new</a></li> #}
-                    <li class="{{ app.request.get('_route') == 'bottles_index' ? 'active' : '' }}"><a href="{{ path('bottles_index') }}" title="Access all bottles\' list">My Bottles</a></li>
-                    <li class="{{ app.request.get('_route') == 'bottles_beach' ? 'active' : '' }}"><a class="disabled" href="{{ path('bottles_beach') }}" title="">The beach</a></li>
-                    <!-- Faire une Dropdown "Bottles" pour y séparer les bouteilles écrites et les bouteilles recues -->
-                    <li class="{{ app.request.get('_route') == 'bottles_found' ? 'active' : '' }}"><a href="{{ path('bottles_found') }}" title="">Bottles found</a></li>
-                    {# <li class="{{ app.request.get('_route') == 'xxx' ? 'active' : '' }}"><a class="disabled" href="" title="">Bottles waiting</a></li> #}
-                    {# <li class="{{ app.request.get('_route') == 'xxx' ? 'active' : '' }}"><a class="disabled" href="" title="">Bottles sent</a></li> #}
-                
+                    {% if app.user %}
+                        {# <li class="{{ app.request.get('_route') == 'users_index' ? 'active' : '' }}"><a href="{{ path('users_index') }}" title="">All Users</a></li> #}
+                        {# <li class="{{ app.request.get('_route') == 'bottles_sent_all' ? 'active' : '' }}"><a href="{{ path('bottles_sent_all') }}" title="">All bottles found</a></li> #}
+                        {# <li class="{{ app.request.get('_route') == 'comments_index' ? 'active' : '' }}"><a href="{{ path('comments_index') }}" title="">All comments</a></li> #}
+                        {# <li class="{{ app.request.get('_route') == 'bottles_new' ? 'active' : '' }}"><a href="{{ path('bottles_new') }}" title="Create a bottle">Create new</a></li> #}
+                        <li class="{{ app.request.get('_route') == 'bottles_index' ? 'active' : '' }}"><a href="{{ path('bottles_index') }}" title="Access all bottles\' list">My Bottles</a></li>
+                        <li class="{{ app.request.get('_route') == 'bottles_beach' ? 'active' : '' }}"><a class="disabled" href="{{ path('bottles_beach') }}" title="">The beach</a></li>
+                        <!-- Faire une Dropdown "Bottles" pour y séparer les bouteilles écrites et les bouteilles recues -->
+                        <li class="{{ app.request.get('_route') == 'bottles_found' ? 'active' : '' }}"><a href="{{ path('bottles_found') }}" title="">Bottles found</a></li>
+                        {# <li class="{{ app.request.get('_route') == 'xxx' ? 'active' : '' }}"><a class="disabled" href="" title="">Bottles waiting</a></li> #}
+                        {# <li class="{{ app.request.get('_route') == 'xxx' ? 'active' : '' }}"><a class="disabled" href="" title="">Bottles sent</a></li> #}
+                    {% else %}
+                    {% endif %}
                 </ul>
 
                 <a class="center brand-logo hide-on-small-and-down" href="{{ path('posts_index') }}" title="ABITS - A Bottle Into The Sea">ABITS</a>
                 <a class="center brand-logo hide-on-med-and-up" href="{{ path('posts_index') }}" title="ABITS - A Bottle Into The Sea"><i class="material-icons">message</i></a>
 
                 <ul id="nav-mobile-r" class="right hide-on-small-and-down">
-                    <li class="{{ app.request.get('_route') == 'users_index' ? 'active' : '' }}"><a href="{{ path('users_index') }}" title="">Profile</a></li>
-                    <li class="{{ app.request.get('_route') == 'users_login' ? 'active' : '' }}"><a href="{{ path('users_login') }}" title="">Log In</a></li>
-                    <li class="{{ app.request.get('_route') == 'users_new' ? 'active' : '' }}"><a href="{{ path('users_new') }}" title="">Register</a></li>
+                    {% if app.user %}
+                        <li class="{{ app.request.get('_route') == 'users_index' ? 'active' : '' }}"><a href="{{ path('users_show', {'id':app.user.id}) }}" title="">Profile</a></li>
+                        {# <li class="{{ app.request.get('_route') == 'users_index' ? 'active' : '' }}"><a href="{{ path('users_index') }}" title="">Profile</a></li> #}
+                        <li class=""><a href="{{ path('users_logout') }}" title="Log Out">Log Out</a></li>
+                    {% else %}
+                        <li class="{{ app.request.get('_route') == 'users_login' ? 'active' : '' }}"><a href="{{ path('users_login') }}" title="">Log In</a></li>
+                        <li class="{{ app.request.get('_route') == 'users_new' ? 'active' : '' }}"><a href="{{ path('users_new') }}" title="">Register</a></li>
+                    {% endif %}
                 </ul>
                 
             </div>
@@ -37,21 +44,28 @@
 
 
 <ul class="sidenav" id="mobile-demo">
-                    {# <li class="{{ app.request.get('_route') == 'users_index' ? 'active' : '' }}"><a href="{{ path('users_index') }}" title="">All Users</a></li> #}
-                    {# <li class="{{ app.request.get('_route') == 'bottles_sent_all' ? 'active' : '' }}"><a href="{{ path('bottles_sent_all') }}" title="">All bottles found</a></li> #}
-                    {# <li class="{{ app.request.get('_route') == 'bottles_new' ? 'active' : '' }}"><a href="{{ path('bottles_new') }}" title="Create a bottle">Create new</a></li> #}
-                    <li class="{{ app.request.get('_route') == 'bottles_index' ? 'active' : '' }}"><a href="{{ path('bottles_index') }}" title="Access all bottles\' list">My Bottles</a></li>
-                    <li class="{{ app.request.get('_route') == 'bottles_beach' ? 'active' : '' }}"><a class="disabled" href="{{ path('bottles_beach') }}" title="">The beach</a></li>
-                    <!-- Faire une Dropdown "Bottles" pour y séparer les bouteilles écrites et les bouteilles recues -->
-                    <li class="{{ app.request.get('_route') == 'bottles_found' ? 'active' : '' }}"><a href="{{ path('bottles_found') }}" title="">Bottles found</a></li>
-                    {# <li class="{{ app.request.get('_route') == 'xxx' ? 'active' : '' }}"><a class="disabled" href="" title="">Bottles waiting</a></li> #}
-                    {# <li class="{{ app.request.get('_route') == 'xxx' ? 'active' : '' }}"><a class="disabled" href="" title="">Bottles sent</a></li> #}
-
-
+                    {% if app.user %}
+                        {# <li class="{{ app.request.get('_route') == 'users_index' ? 'active' : '' }}"><a href="{{ path('users_index') }}" title="">All Users</a></li> #}
+                        {# <li class="{{ app.request.get('_route') == 'bottles_sent_all' ? 'active' : '' }}"><a href="{{ path('bottles_sent_all') }}" title="">All bottles found</a></li> #}
+                        {# <li class="{{ app.request.get('_route') == 'comments_index' ? 'active' : '' }}"><a href="{{ path('comments_index') }}" title="">All comments</a></li> #}
+                        {# <li class="{{ app.request.get('_route') == 'bottles_new' ? 'active' : '' }}"><a href="{{ path('bottles_new') }}" title="Create a bottle">Create new</a></li> #}
+                        <li class="{{ app.request.get('_route') == 'bottles_index' ? 'active' : '' }}"><a href="{{ path('bottles_index') }}" title="Access all bottles\' list">My Bottles</a></li>
+                        <li class="{{ app.request.get('_route') == 'bottles_beach' ? 'active' : '' }}"><a class="disabled" href="{{ path('bottles_beach') }}" title="">The beach</a></li>
+                        <!-- Faire une Dropdown "Bottles" pour y séparer les bouteilles écrites et les bouteilles recues -->
+                        <li class="{{ app.request.get('_route') == 'bottles_found' ? 'active' : '' }}"><a href="{{ path('bottles_found') }}" title="">Bottles found</a></li>
+                        {# <li class="{{ app.request.get('_route') == 'xxx' ? 'active' : '' }}"><a class="disabled" href="" title="">Bottles waiting</a></li> #}
+                        {# <li class="{{ app.request.get('_route') == 'xxx' ? 'active' : '' }}"><a class="disabled" href="" title="">Bottles sent</a></li> #}
+                    {% else %}
+                    {% endif %}
     <div class="hide-on-med-and-up">
         <hr class="">
-                    <li class="{{ app.request.get('_route') == 'users_index' ? 'active' : '' }}"><a href="{{ path('users_index') }}" title="">Profile</a></li>
-                    <li class="{{ app.request.get('_route') == 'users_login' ? 'active' : '' }}"><a href="{{ path('users_login') }}" title="">Log In</a></li>
-                    <li class="{{ app.request.get('_route') == 'users_new' ? 'active' : '' }}"><a href="{{ path('users_new') }}" title="">Register</a></li>
+        {% if app.user %}
+            <li class="{{ app.request.get('_route') == 'users_index' ? 'active' : '' }}"><a href="{{ path('users_show', {'id':app.user.id}) }}" title="">Profile</a></li>
+            {# <li class="{{ app.request.get('_route') == 'users_index' ? 'active' : '' }}"><a href="{{ path('users_index') }}" title="">Profile</a></li> #}
+            <li class=""><a href="{{ path('users_logout') }}" title="Log Out">Log Out</a></li>
+        {% else %}
+            <li class="{{ app.request.get('_route') == 'users_login' ? 'active' : '' }}"><a href="{{ path('users_login') }}" title="">Log In</a></li>
+            <li class="{{ app.request.get('_route') == 'users_new' ? 'active' : '' }}"><a href="{{ path('users_new') }}" title="">Register</a></li>
+        {% endif %}
     </div>
 </ul>

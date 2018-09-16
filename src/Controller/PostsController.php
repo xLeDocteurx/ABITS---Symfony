@@ -57,11 +57,8 @@ class PostsController extends AbstractController
     public function new(Request $request): Response
     {
         // $username = $_SESSION['auth']['username'];
-        $author = $this->getDoctrine()
-        ->getRepository(Users::class)
-        ->findOneByUsername('LeDocteur');
-        // $author = new Users;
-        // $author->setUsername('LeDocteur');
+        $author = $this->getUser();
+        
 
         $post = new Posts();
         $post->setDate(new \DateTime('now'));
@@ -98,9 +95,7 @@ class PostsController extends AbstractController
     {
 
         // $username = $_SESSION['auth']['username'];
-        $thisUser = $this->getDoctrine()
-        ->getRepository(Users::class)
-        ->findOneByUsername('LeDocteur');
+        $thisUser = $this->getUser();
 
 
         $comment = new Comments();

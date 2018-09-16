@@ -97,17 +97,21 @@
             </div>
             <div class="card-action">
 
-                <ul class="collapsible">
-                    <li class="active">
-                        <div class="collapsible-header">
-                            <i class="material-icons align-right">message</i>
-                            <h4>Comment this post</h4>
-                        </div>
-                        <div class="collapsible-body">
-                            {{ include('comments/_form.html.twig') }}
-                        </div>
-                    </li>
-                </ul>
+                {% if app.user %}
+                    <ul class="collapsible">
+                        <li class="active">
+                            <div class="collapsible-header">
+                                <i class="material-icons align-right">message</i>
+                                <h4>Comment this post</h4>
+                            </div>
+                            <div class="collapsible-body">
+                                {{ include('comments/_form.html.twig') }}
+                            </div>
+                        </li>
+                    </ul>
+                {% else %}
+                    <h5>Les utilisateurs non connectés ne peuvent pas commenter</h5>
+                {% endif %}
 
             </div>
         </div>

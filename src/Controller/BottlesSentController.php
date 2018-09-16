@@ -39,9 +39,7 @@ class BottlesSentController extends Controller
     {
 
         // $username = $_SESSION['auth']['username'];
-        $thisUser = $this->getDoctrine()
-        ->getRepository(Users::class)
-        ->findOneByUsername('LeDocteur');
+        $thisUser = $this->getUser();
         
         $user_bottles = $thisUser->getBottlesSents();
 
