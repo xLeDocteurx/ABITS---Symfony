@@ -27,7 +27,7 @@
                 <td>           
                     {# {{ bottle.bottle.receivers }}          #}
                     {% for receiver in bottle.bottle.bottlesSent.receivers %}
-                        <a href="{{ path('users_show', {id: receiver.id}) }}">{{ receiver.username }}</a> . 
+                        <a href="{{ path('users_show', {id: receiver.id}) }}">{{ receiver.username }}</a> ,
                     {% else %}
                         No receivers yet
                     {% endfor %}

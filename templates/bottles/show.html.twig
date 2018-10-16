@@ -23,7 +23,7 @@
                 <th>Receivers</th>
                 <td>
                     {% for receiver in bottle.bottlesSent.receivers %}
-                        <a href="{{ path('users_show', {id: receiver.id}) }}">{{ receiver.username }}</a> . 
+                        <a href="{{ path('users_show', {id: receiver.id}) }}">{{ receiver.username }}</a> ,
                     {% else %}
                         No receivers yet
                     {% endfor %}

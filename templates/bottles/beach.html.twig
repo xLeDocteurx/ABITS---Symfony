@@ -3,9 +3,16 @@
 {% block title %}Bottles index{% endblock %}
 
 {% block body %}
-<h1>The Beach</h1>
-
-    <table class="table">
+    <div class="center aligned">
+        <h1>The Beach</h1>
+        You've come a long long way together <br>
+        Through the hard times and the good <br><br>
+    </div>    
+    <div class="center aligned">
+        <a class="waves-effect waves-light btn-small" href="{{ path('bottles_find') }}">Find a bottle</a>
+    </div>
+    
+    {# <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
@@ -21,21 +28,21 @@
         <tbody>
         {% for bottle in bottles %}
             <tr>
-                <td>{{ bottle.id }}</td>
-                <td>{{ bottle.title }}</td>
-                <td>{{ bottle.author.username }}</td>
+                <td>{{ bottle.bottle.id }}</td>
+                <td>{{ bottle.bottle.title }}</td>
+                <td>{{ bottle.bottle.author.username }}</td>
                 <td>
-                    {% for receiver in bottle.bottlesSent.receivers %}
+                    {% for receiver in bottle.bottle.bottlesSent.receivers %}
                         <a href="{{ path('users_show', {id: receiver.id}) }}">{{ receiver.username }}</a> . 
                     {% else %}
                         No receivers yet
                     {% endfor %}
                 </td>
-                <td>{{ bottle.content }}</td>
-                <td>{{ bottle.date ? bottle.date|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ bottle.bottle.content }}</td>
+                <td>{{ bottle.bottle.date ? bottle.bottle.date|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a class="waves-effect waves-light btn-small" href="{{ path('bottles_show', {'id': bottle.id}) }}">show</a>
-                    <a class="waves-effect waves-light btn-small" href="{{ path('bottles_edit', {'id': bottle.id}) }}">edit</a>
+                    <a class="waves-effect waves-light btn-small" href="{{ path('bottles_show', {'id': bottle.bottle.id}) }}">show</a>
+                    <a class="waves-effect waves-light btn-small" href="{{ path('bottles_edit', {'id': bottle.bottle.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -44,6 +51,7 @@
             </tr>
         {% endfor %}
         </tbody>
-    </table>
+    </table> #}
+
 
 {% endblock %}
