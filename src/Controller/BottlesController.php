@@ -51,24 +51,57 @@ class BottlesController extends AbstractController
     }
     
     /**
+     * @Route("/all", name="bottles_index_all", methods="GET")
+     */
+    public function all(BottlesRepository $bottlesRepository): Response
+    {
+        $all_bottles = $bottlesRepository->findAll();
+        // $user_bottles = $thisUser->getBottles();
+
+        return $this->render('bottles/index.html.twig', ['bottles' => $all_bottles]);
+    }
+    
+    /**
+     * @Route("/sent", name="bottles_sent_index_bis", methods="GET")
+     */
+    public function sent()
+    {
+        return $this->redirectToRoute('bottles_sent_index');
+    }
+
+    /**
      * @Route("/send", name="bottles_send", methods="GET|POST")
      */
-    public function send(Request $request, BottlesRepository $bottlesRepository): Response
+    public function send(Request $request, BottlesRepository $bottlesRepository, UsersRepository $usersRepository): Response
     {
         
-        $bottle = $this->getDoctrine()
-        ->getRepository(Bottles::class)
-        ->findOneById($_POST['bottleId']);
+        $bottle = $bottlesRepository->findOneById($_POST['bottleId']);
         $bottle->setSent(true);
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($bottle);
         $em->flush();
 
+        $receiversLimit = 3;
+        $allUsers = $usersRepository->findAll();
+        $allUsers_Length = sizeof($allUsers);
+        $chosenUsers = [];
+
         $bottlesSent = new BottlesSent();
         $bottlesSent->setBottle($bottle);
-        $bottlesSent->setReceived(0);
+        $bottlesSent->setReceived(false);
+        while (sizeof($chosenUsers) < $receiversLimit) {
 
+            $randomId  = rand(1, $allUsers_Length);
+            $randomReceiver = $usersRepository->findOneById($randomId);
+
+            if ( !in_array($randomReceiver, $chosenUsers) && !in_array($this->getUser(), $chosenUsers) ) {
+                array_push($chosenUsers, $randomReceiver);
+            }
+        }
+        foreach ( $chosenUsers as $user ) {
+            $bottlesSent->addReceiver($user);
+        }
         $em->persist($bottlesSent);
         $em->flush();
             
@@ -99,22 +132,23 @@ class BottlesController extends AbstractController
     {
 
         // $username = $_SESSION['auth']['username'];
+
+        $bottles_at_the_beach = array_reverse($bottlesRepository->findBySent(true));
+
+        return $this->render('bottles/beach.html.twig', [
+            'bottles' => $bottles_at_the_beach,
+        ]);
+    }
+
+    /**
+     * @Route("/find", name="bottles_find", methods="GET|POST")
+     */
+    public function find(Request $request, BottlesRepository $bottlesRepository, BottlesSentRepository $bottlesSentRepository): Response
+    {
+
+        // $username = $_SESSION['auth']['username'];
         $thisUser = $this->getUser();
         
-        // $bottles_at_the_beach = $thisUser->getBottlesSents();
-
-        // $bottles_at_the_beach = $bottlesRepository->findByBottlesSent(true);
-        // $bottlesSent_at_the_beach = $bottlesSentRepository->findAll();
-        // $thisBottles = [];
-        // foreach ($bottle as $bottles_at_the_beach) {
-        //     if ($bottle->getAuthor() == $thisUser) {
-        //         array_push($thisBottles, $bottle);
-        //     }
-        // }
-        // $bottles_at_the_beach = $bottlesRepository->findBySent(true);
-        // $bottles_at_the_beach = $bottlesRepository->findBy([
-        
-            // $bottles_at_the_beach = $bottlesRepository->findBy([
         $bottles_at_the_beach = $bottlesSentRepository->findBy(
             array('received' => '0'),           
             array('id' => 'DESC')
@@ -124,7 +158,7 @@ class BottlesController extends AbstractController
         );
 
 
-        return $this->render('bottles/beach.html.twig', [
+        return $this->render('bottles/find.html.twig', [
             'bottles' => $bottles_at_the_beach,
         ]);
     }

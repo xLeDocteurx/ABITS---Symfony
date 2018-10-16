@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bottles index{% endblock %}
+
+{% block body %}
+<h1>Bottles I have written</h1>
+
+    <a href="{{ path('bottles_new') }}">Create new</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Receivers</th>
+                <th>Content</th>
+                <th>Date</th>
+                <th>Sent</th>
+                
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for bottle in bottles %}
+            <tr>
+                <td>{{ bottle.bottle.id }}</td>
+                <td>{{ bottle.bottle.title }}</td>
+                <td>{{ bottle.bottle.author.username }}</td>
+                <td>
+                    {% for user in bottle.bottle.bottlesSent.receivers %}
+                        {{ user.username }} ,
+                    {% else %}
+                        No receivers
+                    {% endfor %}
+                </td>
+                <td>{{ bottle.bottle.content }}</td>
+                <td>{{ bottle.bottle.date ? bottle.bottle.date|date('Y-m-d H:i:s') : '' }}</td>
+
+                <td>
+                    {% if bottle.bottle.sent %}
+                        <a class="disabled btn-small" href="" data-target="">Yes<i class="material-icons right">arrow_drop_down</i></a>
+                    {% else %}
+                        <ul id="dropdown{{ bottle.bottle.id }}" class="dropdown-content">
+                            <li>
+                                <form action="{{ path('bottles_send') }}" method="POST">
+                                    <input class="hide" name="bottleId" type="number" value="{{ bottle.bottle.id }}">
+                                    <button class="btn btn-large" type="submit" onclick="confirm('Are you sure you want to save this thing into the database?');">Send</button>
+                                </form>
+
+                            </li>
+                        </ul>
+                        <a class="waves-effect waves-light lighten-2 btn-small dropdown-trigger" href="#!" data-target="dropdown{{ bottle.bottle.id }}">No<i class="material-icons right">arrow_drop_down</i></a>
+                    {% endif %}
+
+                </td>
+
+                <td>
+                    <a class="waves-effect waves-light btn-small" href="{{ path('bottles_show', {'id': bottle.bottle.id}) }}">show</a>
+                    <a class="waves-effect waves-light btn-small" href="{{ path('bottles_edit', {'id': bottle.bottle.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

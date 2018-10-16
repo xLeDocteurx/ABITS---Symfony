@@ -74,6 +74,11 @@ class Users implements UserInterface, \Serializable
      */
     private $avatar;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $author;
+
     public function __construct()
     {
         $this->bottlesSents = new ArrayCollection();
@@ -334,5 +339,17 @@ class Users implements UserInterface, \Serializable
             // see section on salt below
             // $this->salt
         ) = unserialize($serialized, array('allowed_classes' => false));
+    }
+
+    public function getAuthor(): ?int
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(int $author): self
+    {
+        $this->author = $author;
+
+        return $this;
     }
 }

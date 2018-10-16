@@ -20,6 +20,16 @@
                 <td>{{ bottle.content }}</td>
             </tr>
             <tr>
+                <th>Receivers</th>
+                <td>
+                    {% for receiver in bottle.bottlesSent.receivers %}
+                        <a href="{{ path('users_show', {id: receiver.id}) }}">{{ receiver.username }}</a> . 
+                    {% else %}
+                        No receivers yet
+                    {% endfor %}
+                </td>
+            </tr>
+            <tr>
                 <th>Date</th>
                 <td>{{ bottle.date ? bottle.date|date('Y-m-d H:i:s') : '' }}</td>
             </tr>

@@ -48,7 +48,6 @@ class UsersController extends AbstractController
      * @Route("/logout", name="users_logout")
      */
     function logout(){
-        
     }
 
     /**
@@ -58,6 +57,7 @@ class UsersController extends AbstractController
     {
         $user = new Users();
         $user->setConfirmed(false);
+        $user->setAuthor(0);
         $form = $this->createForm(UsersType::class, $user);
         $form->handleRequest($request);
 

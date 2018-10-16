@@ -21,21 +21,21 @@
         <tbody>
         {% for bottle in bottles %}
             <tr>
-                <td>{{ bottle.bottle.id }}</td>
-                <td>{{ bottle.bottle.title }}</td>
-                <td>{{ bottle.bottle.author.username }}</td>
+                <td>{{ bottle.id }}</td>
+                <td>{{ bottle.title }}</td>
+                <td>{{ bottle.author.username }}</td>
                 <td>
-                    {% for receiver in bottle.receivers %}
-                        {{ receiver.username }} . 
+                    {% for receiver in bottle.bottlesSent.receivers %}
+                        <a href="{{ path('users_show', {id: receiver.id}) }}">{{ receiver.username }}</a> . 
                     {% else %}
                         No receivers yet
                     {% endfor %}
                 </td>
-                <td>{{ bottle.bottle.content }}</td>
-                <td>{{ bottle.bottle.date ? bottle.bottle.date|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ bottle.content }}</td>
+                <td>{{ bottle.date ? bottle.date|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a class="waves-effect waves-light btn-small" href="{{ path('bottles_show', {'id': bottle.bottle.id}) }}">show</a>
-                    <a class="waves-effect waves-light btn-small" href="{{ path('bottles_edit', {'id': bottle.bottle.id}) }}">edit</a>
+                    <a class="waves-effect waves-light btn-small" href="{{ path('bottles_show', {'id': bottle.id}) }}">show</a>
+                    <a class="waves-effect waves-light btn-small" href="{{ path('bottles_edit', {'id': bottle.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}

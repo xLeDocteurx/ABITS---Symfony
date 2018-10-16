@@ -55,7 +55,7 @@ class BottlesSentController extends Controller
         //     // 0                               // Offset
         //   );
 
-        return $this->render('bottles_sent/index.html.twig', ['bottles_sents' => $user_bottles]);
+        return $this->render('bottles/index_sent.html.twig', ['bottles' => $user_bottles]);
     }
 
     /**
@@ -64,7 +64,8 @@ class BottlesSentController extends Controller
     public function all(BottlesSentRepository $bottlesSentRepository): Response
     {
         $all_bottles = $bottlesSentRepository->findAll();
-        return $this->render('bottles_sent/index.html.twig', ['bottles_sents' => $all_bottles]);
+        // return $this->render('bottles_sent/index.html.twig', ['bottles_sents' => $all_bottles]);
+        return $this->render('bottles/index_sent.html.twig', ['bottles' => $all_bottles]);
     }
 
     /**

@@ -3,7 +3,7 @@
 {% block title %}Bottles index{% endblock %}
 
 {% block body %}
-<h1>Bottles Found</h1>
+<h1>Finding</h1>
 
     <table class="table">
         <thead>
@@ -24,10 +24,9 @@
                 <td>{{ bottle.bottle.id }}</td>
                 <td>{{ bottle.bottle.title }}</td>
                 <td>{{ bottle.bottle.author.username }}</td>
-                <td>           
-                    {# {{ bottle.bottle.receivers }}          #}
-                    {% for receiver in bottle.bottle.bottlesSent.receivers %}
-                        <a href="{{ path('users_show', {id: receiver.id}) }}">{{ receiver.username }}</a> . 
+                <td>
+                    {% for receiver in bottle.receivers %}
+                        {{ receiver.username }} . 
                     {% else %}
                         No receivers yet
                     {% endfor %}
