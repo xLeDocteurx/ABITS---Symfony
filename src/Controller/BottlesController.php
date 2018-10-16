@@ -93,7 +93,6 @@ class BottlesController extends AbstractController
 
         $em->persist($bottlesSent);
         $em->flush();
-            
 
         return $this->redirectToRoute('bottles_index');
     }
@@ -142,20 +141,7 @@ class BottlesController extends AbstractController
      */
     public function find(Request $request, BottlesRepository $bottlesRepository, BottlesSentRepository $bottlesSentRepository): Response
     {
-
-        // while (sizeof($chosenUsers) < $receiversLimit) {
-
-        //     $randomId  = rand(1, $allUsers_Length);
-        //     $randomReceiver = $usersRepository->findOneById($randomId);
-
-        //     if ( !in_array($randomReceiver, $chosenUsers) && !in_array($this->getUser(), $chosenUsers) ) {
-        //         array_push($chosenUsers, $randomReceiver);
-        //     }
-        // }
-        // foreach ( $chosenUsers as $user ) {
-        //     $bottlesSent->addReceiver($user);
-        // }
-
+        
         // $username = $_SESSION['auth']['username'];
         
         $maxReceivers = 3;
@@ -164,6 +150,19 @@ class BottlesController extends AbstractController
         $bottles_at_the_beach = array_reverse($bottlesSentRepository->findBy([
             'received' => false
         ]));
+            
+            // while (sizeof($chosenUsers) < $receiversLimit) {
+    
+            //     $randomId  = rand(1, $allUsers_Length);
+            //     $randomReceiver = $usersRepository->findOneById($randomId);
+    
+            //     if ( !in_array($randomReceiver, $chosenUsers) && !in_array($this->getUser(), $chosenUsers) ) {
+            //         array_push($chosenUsers, $randomReceiver);
+            //     }
+            // }
+            // foreach ( $chosenUsers as $user ) {
+            //     $bottlesSent->addReceiver($user);
+            // }
 
         $bottle->addReceiver($user);
         if (sizeof($bottle->getReceivers()) >= $maxReceivers) {
@@ -172,11 +171,8 @@ class BottlesController extends AbstractController
 
         $em->persist($bottle);
         $em->flush();
-        
-
 
         return $this->redirectToRoute('bottles_show', $bottle->getId());
-
     }
 
     /**
