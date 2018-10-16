@@ -158,30 +158,23 @@ class BottlesController extends AbstractController
 
         // $username = $_SESSION['auth']['username'];
         
-        
-        $numberOfReceivers = 3;
-
+        $maxReceivers = 3;
         $user = $this->getUser();
-        $bottlesSent->addReceiver($user);
         
-        $bottlesSent->setReceived(false);
+        $bottles_at_the_beach = array_reverse($bottlesSentRepository->findBy([
+            'received' => false
+        ]));
 
-        $em->persist($bottlesSent);
+        $bottle->addReceiver($user);
+        if (sizeof($bottle->getReceivers()) >= $maxReceivers) {
+            $bottle->setReceived(true);
+        }
+
+        $em->persist($bottle);
         $em->flush();
-        $thisUser = $this->getUser();
         
-        $bottles_at_the_beach = $bottlesSentRepository->findBy(
-            array('received' => '0'),           
-            array('id' => 'DESC')
-        
-            // 'bottlesSent' => 'null',
-            // 'bottle' => $thisUser->getUsername(),
-        );
 
 
-        // return $this->render('bottles/find.html.twig', [
-        //     'bottles' => $bottles_at_the_beach,
-        // ]);
         return $this->redirectToRoute('bottles_show', $bottle->getId());
 
     }
