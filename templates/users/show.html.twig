@@ -4,49 +4,43 @@
 
 {% block body %}
 
-    
+    <div class="row container">
+        <div class="col s12">
+            <div class="card">
+            
+                <div class="card-image 
+                card-image-show
+                ">
+                    <img class="profile_avatar" src="{{ user.avatar ? user.avatar : '/images/yuna.jpg' }}" alt="User Image">
+                    <span class="card-title">#{{ user.id }} : {{ user.username }}</span>
+                    <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
+                </div>
 
-    <table class="table">
+                <div class="card-content">
+                    
+                    
+                    <p><h4>#{{ user.id }} : {{ user.username }}</h4>
+                    </p>
+                    <p><h5>Country</h5>
+                    {{ user.country }}</p>
+                    <p><h5>Email</h5>
+                    {{ user.email }}</p>
+                    <p><h5>Password</h5>
+                    {{ user.password }}</p>
+                    <p><h5>Bio</h5>
+                    {{ user.bio }}</p>
+                    <p><h5>Confirmed</h5>
+                    {{ user.confirmed ? 'Yes' : 'No' }}</p>
+                </div>
 
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ user.id }}</td>
-            </tr>
-            <tr>
-                <th>Avatar</th>
-                <td><img class="profile_avatar" src="{{ user.avatar ? user.avatar : '/images/yuna.jpg' }}"></td>
-            </tr>
-            <tr>
-                <th>Username</th>
-                <td>{{ user.username }}</td>
-            </tr>
-            <tr>
-                <th>Country</th>
-                <td>{{ user.country }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ user.email }}</td>
-            </tr>
-            <tr>
-                <th>Password</th>
-                <td>{{ user.password }}</td>
-            </tr>
-            <tr>
-                <th>Bio</th>
-                <td>{{ user.bio }}</td>
-            </tr>
-            <tr>
-                <th>Confirmed</th>
-                <td>{{ user.confirmed ? 'Yes' : 'No' }}</td>
-            </tr>
-        </tbody>
-    </table>
+                <div class="card-action">
+                    <a href="{{ path('users_index') }}">back to list</a>
+                    <a href="{{ path('users_edit', {'id': user.id}) }}">edit</a>
+                    {{ include('users/_delete_form.html.twig') }}
+                </div>
 
-    <a href="{{ path('users_index') }}">back to list</a>
+            </div>
+        </div>
+    </div>
 
-    <a href="{{ path('users_edit', {'id': user.id}) }}">edit</a>
-
-    {{ include('users/_delete_form.html.twig') }}
 {% endblock %}

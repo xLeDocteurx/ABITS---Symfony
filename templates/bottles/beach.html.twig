@@ -3,15 +3,27 @@
 {% block title %}Bottles index{% endblock %}
 
 {% block body %}
+
+
+{# <h1>
+{% if user %}
+    {{ dump(user) }}
+{% endif %}
+</h1> #}
+
+
+
     <div class="center aligned">
         <h1>The Beach</h1>
-        {% if bottles %}
-            You've come a long long way together <br>
-            Through the hard times and the good
-        {% else %}
-            The sea is actualy empty
-        {% endif %}
-        <br><br>
+        <p>
+            {% if bottles %}
+                You've come a long long way together <br>
+                Through the hard times and the good <br>
+                {# <img src="https://cdn.dribbble.com/users/330915/screenshots/3749740/1_b3.gif" alt="Bottle  IMG" style="width: 300px"/> #}
+            {% else %}
+                The sea is actualy empty
+            {% endif %}
+        </p>
     </div>    
     <div class="center aligned">
         <a class="waves-effect waves-light btn-small" href="{{ path('bottles_find') }}"

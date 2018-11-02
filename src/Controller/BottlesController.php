@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controller;
+// use Symfony\Component\Security\Core\User\UserInterface;
 
 use App\Entity\Users;
 use App\Form\UsersType;
@@ -118,61 +119,77 @@ class BottlesController extends AbstractController
      */
     public function beach(Request $request, BottlesRepository $bottlesRepository, BottlesSentRepository $bottlesSentRepository): Response
     {
-        
-        // $username = $_SESSION['auth']['username'];
 
-        // $bottles_at_the_beach = array_reverse($bottlesRepository->findBy([
-        //     'sent' => 'true'
-        // ]));
+        $user = $this->getUser();
         $bottles_at_the_beach = array_reverse($bottlesRepository->findBySent(true));
                 
-        // $all_bottles = array_reverse($bottlesSentRepository->findAll());
         $all_bottles = array_reverse($bottlesSentRepository->findBy([
             'received' => false
         ]));
-        
+
         return $this->render('bottles/beach.html.twig', [
             'bottles' => $all_bottles,
+            'user' => $user
         ]);
     }
 
     /**
      * @Route("/find", name="bottles_find", methods="GET|POST")
      */
-    public function find(Request $request, BottlesRepository $bottlesRepository, BottlesSentRepository $bottlesSentRepository): Response
+    public function find(Request $request, 
+    // UserInterface $user, 
+    BottlesRepository $bottlesRepository, BottlesSentRepository $bottlesSentRepository): Response
     {
-        
-        // $username = $_SESSION['auth']['username'];
-        
         $maxReceivers = 3;
         $user = $this->getUser();
+        $userId = $user->getId();
         
-        $bottles_at_the_beach = array_reverse($bottlesSentRepository->findBy([
+        // Nous récupérons toutes les bouteilles ayant l'attribut "received" à false
+        $bottles_at_the_beach = $bottlesSentRepository->findBy([
             'received' => false
-        ]));
+        ]);
+        
+        // filtrer les bouteilles pour exclure celles ayant étées envoyées par notre  utilisateur
+        array_filter($bottles_at_the_beach, function ($bottle) {
+            $bottleAuthorId = $bottle->getBottle()->getAuthor()->getId();
+            return $bottleAuthorId != $this->getUser()->getId();
+        });
+        
+        // Filtrer les bouteilles pour exclure celles ayant déja étées reçues par notre utilisateur
+        array_filter($bottles_at_the_beach, function ($bottle) {
+            $bottleReceivers = $bottle->getReceivers();
+            $receiversId = [];
+            foreach ($bottleReceivers as $key => $receiver) {
+                array_push($receiversId, $receiver->getId());
+            }
+            return !in_array($this->getUser()->getId(), $receiversId);
+        });
+
+
+
+        file_put_contents('./errorLogs.txt', 'Debug Objects: sizeof($bottles_at_the_beach) ' . sizeof($bottles_at_the_beach) . ' // ');
+        if (sizeof($bottles_at_the_beach) > 0) {
             
-            // while (sizeof($chosenUsers) < $receiversLimit) {
-    
-            //     $randomId  = rand(1, $allUsers_Length);
-            //     $randomReceiver = $usersRepository->findOneById($randomId);
-    
-            //     if ( !in_array($randomReceiver, $chosenUsers) && !in_array($this->getUser(), $chosenUsers) ) {
-            //         array_push($chosenUsers, $randomReceiver);
-            //     }
-            // }
-            // foreach ( $chosenUsers as $user ) {
-            //     $bottlesSent->addReceiver($user);
-            // }
 
-        $bottle->addReceiver($user);
-        if (sizeof($bottle->getReceivers()) >= $maxReceivers) {
-            $bottle->setReceived(true);
+            $bottle = $bottles_at_the_beach[ rand(
+                0,
+                sizeof($bottles_at_the_beach) - 1
+            ) ];
+
+            // Nous ajoutons l'utilisateur courant à la liste des "receivers" de la bouteille
+            $bottle->addReceiver($user);
+            // Si le nombre de "receivers" maximum est atteint nous faisons passer l'attribut "received" à true
+            if (sizeof($bottle->getReceivers()) >= $maxReceivers) {
+                $bottle->setReceived(true);
+            }
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($bottle);
+            $em->flush();
+
+            return $this->redirectToRoute('bottles_show', ['id' => $bottle-getBottle()->getId()]);
+        } else {
+            return $this->redirectToRoute('bottles_beach');
         }
-
-        $em->persist($bottle);
-        $em->flush();
-
-        return $this->redirectToRoute('bottles_show', $bottle->getId());
     }
 
     /**

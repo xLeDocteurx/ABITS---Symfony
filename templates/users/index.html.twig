@@ -3,44 +3,29 @@
 {% block title %}Users index{% endblock %}
 
 {% block body %}
-    <h1>Users index</h1>
+    {# <h1>Users index</h1> #}
 
+    <div class="collection">
+        <span class="collection-header"><h4>Users Index</h4></span>
         {% for user in users %}
-
-
-    <div class="col s12 m7">
-        <div class="card small horizontal hoverable">
-            <div class="card-image">
-                <a href="{{ path('users_show', {'id': user.id}) }}"><img src="{{ user.avatar ? user.avatar : '/images/yuna.jpg' }}" alt="Card Image">
-                <span class="card-title">#{{ user.id }} : {{ user.username }}</span></a>
-                {{ user.country }}
-                {# <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a> #}
-            </div>
-            <div class="card-stacked">
-                <span class="card-title">#{{ user.id }} : {{ user.username }}</span>
-                <div class="card-content">
-                    <p>Bio : {{ user.bio }}</p>
-                </div>
-                <div class="card-action">
-                    Confirmed : {{ user.confirmed ? 'Yes' : 'No' }}
-                    <a href="#">This is a link</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-                
-                
-                <td>
+            <a class="collection-item avatar" href="{{ path('users_show', {'id': user.id}) }}">
+                <img src="{{ user.avatar ? user.avatar : '/images/yuna.jpg' }}" alt="Card Image" class="circle">
+                <span class="title">
+                    <span class="card-title">#{{ user.id }} : {{ user.username }} / {{ user.country }}</span>
+                </span>
+                <p>
+                    Bio : {{ user.bio }}
+                </p>
+                <i class="secondary-content material-icons">grade</i>
+                {{ user.confirmed ? '<i class="secondary-content material-icons">grade</i>' : "" }}
+                {#                 
                     <a href="{{ path('users_show', {'id': user.id}) }}">show</a>
                     <a href="{{ path('users_edit', {'id': user.id}) }}">edit</a>
-                </td>
-            </tr>
+                #}
+            </a>
         {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
+                <h4>no records found</h4>
         {% endfor %}
+    </div>
 
-    <a href="{{ path('users_new') }}">Create new</a>
 {% endblock %}
